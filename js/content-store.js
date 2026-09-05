@@ -55,6 +55,7 @@
       eyebrow: 'Software Engineer — Flutter & React Native Developer',
       tagline: 'From Idea to App — Building Experiences That Make an Impact.',
       photo: null,
+      photoPath: null, // GitHub repo path for the uploaded file, used to delete/replace it later
     },
     stats: [
       { key: 'apps',     value: 5,  decimals: 0, suffix: '+', label: 'Apps Shipped Live' },
@@ -64,6 +65,7 @@
     ],
     about: {
       photo: null,
+      photoPath: null, // GitHub repo path for the uploaded file, used to delete/replace it later
       quickFacts: { location: 'Bhavnagar, Gujarat, India', focus: 'Flutter & React Native', experience: '2+ years' },
       storyParagraphs: [
         "My journey into mobile app development began with a simple curiosity — how does an idea on paper turn into something people can hold in their hand and actually rely on.",
@@ -143,12 +145,12 @@
       { id: 'ach-5', icon: 'target', stage: 'Impact', year: '2026', title: 'Built TheBidNow\u2019s Real-Time Bidding Engine', achievement: 'Built TheBidNow\u2019s real-time WebSocket bidding engine, supporting concurrent live auctions across 4 sports with sub-200ms response time, while using AI-assisted development to cut debugging time by 30%.', whyItMatters: 'This is the kind of problem I enjoy most — real-time, high-stakes, and only solvable by combining solid architecture with fast, focused execution.' },
     ],
     portfolio: [
-      { id: 'collect',            title: 'Collect',               category: 'mobile', description: 'Own core features on Collect, a React Native app at Mitti Labs connecting 1,000+ registered farmers to a carbon-monitoring and sustainability tracking workflow.', thumbnail: null },
-      { id: 'thebidnow',          title: 'TheBidNow',              category: 'api',    description: 'Built the real-time WebSocket bidding engine powering concurrent live auctions across 4 sports, with sub-200ms response time and OTP auth.', thumbnail: null },
-      { id: 'amulya-mica',        title: 'Amulya Mica Visualizer', category: 'design', description: 'Built an AR-style product visualization experience at 60fps, reducing purchase-stage drop-off with an interactive preview.', thumbnail: null },
-      { id: 'satvvaahar-spjym',   title: 'Satvvaahar & SPJYM',     category: 'mobile', description: 'Shipped a food-ordering app and a community-events app with real-time push notifications and order/profile state management.', thumbnail: null },
-      { id: 'magento-app',        title: 'Magento Mobile App',     category: 'mobile', description: 'Built an e-commerce app on the Magento REST API with product browsing, cart, and an integration-tested checkout flow.', thumbnail: null },
-      { id: 'notenest',           title: 'NoteNest',               category: 'mobile', description: 'An offline-first notes app built solo with Provider and Hive, demonstrating clean architecture and local storage.', thumbnail: null },
+      { id: 'collect',            title: 'Collect',               category: 'mobile', description: 'Own core features on Collect, a React Native app at Mitti Labs connecting 1,000+ registered farmers to a carbon-monitoring and sustainability tracking workflow.', thumbnail: null, thumbnailPath: null },
+      { id: 'thebidnow',          title: 'TheBidNow',              category: 'api',    description: 'Built the real-time WebSocket bidding engine powering concurrent live auctions across 4 sports, with sub-200ms response time and OTP auth.', thumbnail: null, thumbnailPath: null },
+      { id: 'amulya-mica',        title: 'Amulya Mica Visualizer', category: 'design', description: 'Built an AR-style product visualization experience at 60fps, reducing purchase-stage drop-off with an interactive preview.', thumbnail: null, thumbnailPath: null },
+      { id: 'satvvaahar-spjym',   title: 'Satvvaahar & SPJYM',     category: 'mobile', description: 'Shipped a food-ordering app and a community-events app with real-time push notifications and order/profile state management.', thumbnail: null, thumbnailPath: null },
+      { id: 'magento-app',        title: 'Magento Mobile App',     category: 'mobile', description: 'Built an e-commerce app on the Magento REST API with product browsing, cart, and an integration-tested checkout flow.', thumbnail: null, thumbnailPath: null },
+      { id: 'notenest',           title: 'NoteNest',               category: 'mobile', description: 'An offline-first notes app built solo with Provider and Hive, demonstrating clean architecture and local storage.', thumbnail: null, thumbnailPath: null },
     ],
   };
 

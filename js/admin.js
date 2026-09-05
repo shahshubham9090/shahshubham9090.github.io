@@ -70,6 +70,86 @@
     });
   }
 
+  /* ---------- Remote image upload (GitHub-backed) ----------
+     Images no longer live in localStorage. The compressed image is
+     posted to /api/upload-image, a serverless function that commits
+     it to the configured GitHub repo and hands back a public raw.
+     githubusercontent.com URL — that's what gets stored in the
+     content store, so every visitor (any browser/device) sees it. */
+  const ALLOWED_UPLOAD_MIME = ['image/jpeg', 'image/png', 'image/webp'];
+  const MAX_ORIGINAL_BYTES = 15 * 1024 * 1024; // 15MB, before client-side compression
+
+  function validateImageFile(file) {
+    if (!file || !file.type || !file.type.startsWith('image/')) {
+      return 'Please select an image file.';
+    }
+    if (!ALLOWED_UPLOAD_MIME.includes(file.type)) {
+      return 'Only JPG, PNG, or WEBP images are supported.';
+    }
+    if (file.size > MAX_ORIGINAL_BYTES) {
+      return 'That image is too large (max 15MB).';
+    }
+    return null;
+  }
+
+  async function uploadImageRemote(file, opts) {
+    opts = opts || {};
+    const validationError = validateImageFile(file);
+    if (validationError) throw new Error(validationError);
+
+    const dataUrl = await fileToCompressedDataURL(file, opts.maxDim, opts.quality);
+
+    let res;
+    try {
+      res = await fetch('/api/upload-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dataUrl, slot: opts.slot, projectId: opts.projectId }),
+      });
+    } catch (e) {
+      throw new Error('Could not reach the upload service. Check your connection and try again.');
+    }
+
+    let json = null;
+    try { json = await res.json(); } catch (e) { /* ignore parse failure, handled below */ }
+
+    if (!res.ok || !json || !json.ok) {
+      throw new Error((json && json.error) || 'Failed to upload image. Please try again.');
+    }
+
+    if (opts.oldPath) deleteImageRemote(opts.oldPath); // best-effort, non-blocking
+
+    return { url: json.url, path: json.path };
+  }
+
+  async function deleteImageRemote(path) {
+    if (!path) return;
+    try {
+      await fetch('/api/upload-image', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path }),
+      });
+    } catch (e) { /* best effort - an orphaned file is harmless */ }
+  }
+
+  function setUploadBusy(previewEl, busyText) {
+    if (previewEl) previewEl.innerHTML = `<span class="admin-upload-status">${escapeHTML(busyText || 'Uploading...')}</span>`;
+  }
+
+  function showUploadError(containerEl, message) {
+    if (!containerEl) return;
+    let el = containerEl.querySelector('.admin-upload-error');
+    if (!el) {
+      el = document.createElement('p');
+      el.className = 'admin-upload-error';
+      containerEl.appendChild(el);
+    }
+    el.textContent = message;
+    window.clearTimeout(el._errTimer);
+    el._errTimer = window.setTimeout(() => { el.textContent = ''; }, 6000);
+  }
+
   /* =========================================================
      LOGIN
      ========================================================= */
@@ -256,12 +336,28 @@
       fileInput.addEventListener('change', async () => {
         const file = fileInput.files[0];
         if (!file) return;
-        const dataUrl = await fileToCompressedDataURL(file, 800, 0.8);
-        row.dataset.newThumb = dataUrl;
-        $('.proj-thumb-preview', row).innerHTML = `<img src="${dataUrl}" alt="">`;
+        const preview = $('.proj-thumb-preview', row);
+        setUploadBusy(preview, 'Uploading...');
+        try {
+          // Uploads immediately so the file is safely persisted on GitHub;
+          // which project it belongs to is only committed to the content
+          // store once "Save Portfolio Changes" is clicked (same gating
+          // as the title/category/description fields on this row).
+          const { url, path } = await uploadImageRemote(file, { slot: 'project', projectId: row.dataset.id, maxDim: 800, quality: 0.8 });
+          row.dataset.newThumbUrl = url;
+          row.dataset.newThumbPath = path;
+          row.dataset.thumbRemoved = '';
+          preview.innerHTML = `<img src="${url}" alt="">`;
+        } catch (e) {
+          showUploadError(row.querySelector('.admin-image-row') || row, e.message);
+          const existing = window.SSContent.get().portfolio.find((p) => p.id === row.dataset.id);
+          preview.innerHTML = existing && existing.thumbnail ? `<img src="${existing.thumbnail}" alt="">` : 'No image';
+        }
+        fileInput.value = '';
       });
       $('.proj-thumb-remove', row).addEventListener('click', () => {
-        row.dataset.newThumb = '';
+        row.dataset.newThumbUrl = '';
+        row.dataset.newThumbPath = '';
         row.dataset.thumbRemoved = 'true';
         $('.proj-thumb-preview', row).innerHTML = 'No image';
       });
@@ -282,21 +378,35 @@
   if (savePortfolioBtn) {
     savePortfolioBtn.addEventListener('click', () => {
       const rows = $all('#portfolioList .admin-list-row');
+      const staleRemotePaths = [];
       const newPortfolio = rows.map((row) => {
         let thumbnail = null;
+        let thumbnailPath = null;
         const existing = window.SSContent.get().portfolio.find((p) => p.id === row.dataset.id);
-        if (row.dataset.newThumb) thumbnail = row.dataset.newThumb;
-        else if (row.dataset.thumbRemoved === 'true') thumbnail = null;
-        else thumbnail = existing ? existing.thumbnail : null;
+        const existingPath = existing ? existing.thumbnailPath : null;
+        if (row.dataset.newThumbUrl) {
+          thumbnail = row.dataset.newThumbUrl;
+          thumbnailPath = row.dataset.newThumbPath;
+          if (existingPath && existingPath !== thumbnailPath) staleRemotePaths.push(existingPath);
+        } else if (row.dataset.thumbRemoved === 'true') {
+          thumbnail = null;
+          thumbnailPath = null;
+          if (existingPath) staleRemotePaths.push(existingPath);
+        } else {
+          thumbnail = existing ? existing.thumbnail : null;
+          thumbnailPath = existingPath;
+        }
         return {
           id: row.dataset.id,
           title: $('.proj-title', row).value.trim() || 'Untitled Project',
           category: $('.proj-category', row).value,
           description: $('.proj-desc', row).value.trim(),
           thumbnail,
+          thumbnailPath,
         };
       });
       window.SSContent.update((c) => { c.portfolio = newPortfolio; });
+      staleRemotePaths.forEach(deleteImageRemote);
       flashSaved('portfolioSaveMsg');
       renderPortfolioPanel();
       renderDashboard();
@@ -360,17 +470,28 @@
     aboutPhotoInput.addEventListener('change', async () => {
       const file = aboutPhotoInput.files[0];
       if (!file) return;
-      const dataUrl = await fileToCompressedDataURL(file, 900, 0.82);
-      window.SSContent.update((c) => { c.about.photo = dataUrl; });
+      const preview = $('#aboutPhotoPreview');
+      const container = preview.closest('.admin-image-row');
+      setUploadBusy(preview, 'Uploading...');
+      try {
+        const oldPath = window.SSContent.get().about.photoPath;
+        const { url, path } = await uploadImageRemote(file, { slot: 'about', oldPath, maxDim: 900, quality: 0.82 });
+        window.SSContent.update((c) => { c.about.photo = url; c.about.photoPath = path; });
+        flashSaved('aboutSaveMsg', 'Photo updated!');
+      } catch (e) {
+        showUploadError(container, e.message);
+      }
       renderAboutPanel();
       renderImagesPanel();
-      flashSaved('aboutSaveMsg', 'Photo updated!');
+      aboutPhotoInput.value = '';
     });
   }
   const aboutPhotoRemoveBtn = $('#aboutPhotoRemoveBtn');
   if (aboutPhotoRemoveBtn) {
     aboutPhotoRemoveBtn.addEventListener('click', () => {
-      window.SSContent.update((c) => { c.about.photo = null; });
+      const oldPath = window.SSContent.get().about.photoPath;
+      window.SSContent.update((c) => { c.about.photo = null; c.about.photoPath = null; });
+      deleteImageRemote(oldPath);
       renderAboutPanel();
       renderImagesPanel();
     });
@@ -586,23 +707,35 @@
         const file = input.files[0];
         if (!file) return;
         const card = input.closest('.admin-thumb-card');
-        const dataUrl = await fileToCompressedDataURL(file, 800, 0.8);
-        window.SSContent.update((c2) => {
-          const proj = c2.portfolio.find((p) => p.id === card.dataset.id);
-          if (proj) proj.thumbnail = dataUrl;
-        });
+        const preview = $('.thumb-preview', card);
+        setUploadBusy(preview, 'Uploading...');
+        try {
+          const existing = window.SSContent.get().portfolio.find((p) => p.id === card.dataset.id);
+          const oldPath = existing ? existing.thumbnailPath : null;
+          const { url, path } = await uploadImageRemote(file, { slot: 'project', projectId: card.dataset.id, oldPath, maxDim: 800, quality: 0.8 });
+          window.SSContent.update((c2) => {
+            const proj = c2.portfolio.find((p) => p.id === card.dataset.id);
+            if (proj) { proj.thumbnail = url; proj.thumbnailPath = path; }
+          });
+        } catch (e) {
+          showUploadError(card, e.message);
+        }
         renderImagesPanel();
         renderPortfolioPanel();
         renderDashboard();
+        input.value = '';
       });
     });
     $all('.thumb-remove-btn', thumbGrid).forEach((btn) => {
       btn.addEventListener('click', () => {
         const card = btn.closest('.admin-thumb-card');
+        const existing = window.SSContent.get().portfolio.find((p) => p.id === card.dataset.id);
+        const oldPath = existing ? existing.thumbnailPath : null;
         window.SSContent.update((c2) => {
           const proj = c2.portfolio.find((p) => p.id === card.dataset.id);
-          if (proj) proj.thumbnail = null;
+          if (proj) { proj.thumbnail = null; proj.thumbnailPath = null; }
         });
+        deleteImageRemote(oldPath);
         renderImagesPanel();
         renderPortfolioPanel();
       });
@@ -614,15 +747,26 @@
     heroPhotoInput.addEventListener('change', async () => {
       const file = heroPhotoInput.files[0];
       if (!file) return;
-      const dataUrl = await fileToCompressedDataURL(file, 900, 0.82);
-      window.SSContent.update((c) => { c.hero.photo = dataUrl; });
+      const preview = $('#heroPhotoPreview');
+      const container = preview.closest('.admin-image-row');
+      setUploadBusy(preview, 'Uploading...');
+      try {
+        const oldPath = window.SSContent.get().hero.photoPath;
+        const { url, path } = await uploadImageRemote(file, { slot: 'hero', oldPath, maxDim: 900, quality: 0.82 });
+        window.SSContent.update((c) => { c.hero.photo = url; c.hero.photoPath = path; });
+      } catch (e) {
+        showUploadError(container, e.message);
+      }
       renderImagesPanel();
+      heroPhotoInput.value = '';
     });
   }
   const heroPhotoRemoveBtn = $('#heroPhotoRemoveBtn');
   if (heroPhotoRemoveBtn) {
     heroPhotoRemoveBtn.addEventListener('click', () => {
-      window.SSContent.update((c) => { c.hero.photo = null; });
+      const oldPath = window.SSContent.get().hero.photoPath;
+      window.SSContent.update((c) => { c.hero.photo = null; c.hero.photoPath = null; });
+      deleteImageRemote(oldPath);
       renderImagesPanel();
     });
   }
@@ -631,16 +775,27 @@
     aboutPhotoInput2.addEventListener('change', async () => {
       const file = aboutPhotoInput2.files[0];
       if (!file) return;
-      const dataUrl = await fileToCompressedDataURL(file, 900, 0.82);
-      window.SSContent.update((c) => { c.about.photo = dataUrl; });
+      const preview = $('#aboutPhotoPreview2');
+      const container = preview.closest('.admin-image-row');
+      setUploadBusy(preview, 'Uploading...');
+      try {
+        const oldPath = window.SSContent.get().about.photoPath;
+        const { url, path } = await uploadImageRemote(file, { slot: 'about', oldPath, maxDim: 900, quality: 0.82 });
+        window.SSContent.update((c) => { c.about.photo = url; c.about.photoPath = path; });
+      } catch (e) {
+        showUploadError(container, e.message);
+      }
       renderImagesPanel();
       renderAboutPanel();
+      aboutPhotoInput2.value = '';
     });
   }
   const aboutPhotoRemoveBtn2 = $('#aboutPhotoRemoveBtn2');
   if (aboutPhotoRemoveBtn2) {
     aboutPhotoRemoveBtn2.addEventListener('click', () => {
-      window.SSContent.update((c) => { c.about.photo = null; });
+      const oldPath = window.SSContent.get().about.photoPath;
+      window.SSContent.update((c) => { c.about.photo = null; c.about.photoPath = null; });
+      deleteImageRemote(oldPath);
       renderImagesPanel();
       renderAboutPanel();
     });

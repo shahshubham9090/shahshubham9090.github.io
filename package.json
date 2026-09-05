@@ -1,0 +1,6 @@
+{
+  "name": "shubham-shah-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static portfolio site with a serverless image-upload API backed by GitHub storage."
+}
