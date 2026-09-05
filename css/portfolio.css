@@ -1,0 +1,254 @@
+/* =========================================================
+   PORTFOLIO PAGE — extends design system from styles.css
+   ========================================================= */
+
+/* ---------- Section wrapper ---------- */
+.portfolio-section {
+  padding: clamp(3rem, 8vh, 5rem) 0 clamp(5rem, 10vh, 7rem);
+}
+
+/* ---------- Filter tabs ---------- */
+.filter-tabs {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.35rem;
+  margin-bottom: 3rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+}
+
+.filter-tab {
+  position: relative;
+  z-index: 2;
+  padding: 0.65rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.4s var(--ease-cinematic);
+}
+.filter-tab.is-active { color: var(--color-on-dark); }
+
+.filter-tab-indicator {
+  position: absolute;
+  z-index: 1;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  left: 0.35rem;
+  width: 0;
+  background: var(--color-ink);
+  border-radius: 999px;
+  transition: transform 0.5s var(--ease-cinematic), width 0.5s var(--ease-cinematic);
+  filter: drop-shadow(0 4px 14px color-mix(in srgb, var(--color-ink) 25%, transparent));
+}
+
+/* ---------- Project grid ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.project-card {
+  position: relative;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  color: inherit;
+
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(4px);
+  transition:
+    opacity 0.7s var(--ease-cinematic),
+    transform 0.7s var(--ease-cinematic),
+    filter 0.7s var(--ease-cinematic);
+}
+.project-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* filtering transition (soft cross-fade, no layout snap) */
+.project-card.is-filtered-out {
+  opacity: 0 !important;
+  transform: translateY(10px) scale(0.97) !important;
+  filter: blur(6px) !important;
+  pointer-events: none;
+}
+.project-card.is-hidden { display: none; }
+
+.card-thumb-wrap {
+  position: relative;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  transition: transform 0.5s var(--ease-cinematic), box-shadow 0.5s var(--ease-cinematic);
+}
+
+.project-card:hover .card-thumb-wrap,
+.project-card:focus-visible .card-thumb-wrap {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px -18px color-mix(in srgb, var(--card-accent, var(--color-orange)) 55%, transparent);
+}
+
+.card-thumb-wrap svg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s var(--ease-cinematic);
+}
+.project-card:hover .card-thumb-wrap svg { transform: scale(1.06); }
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(220px circle at var(--mx, 30%) var(--my, 20%), color-mix(in srgb, var(--card-accent, var(--color-orange)) 55%, transparent), transparent 60%);
+  transition: opacity 0.5s var(--ease-cinematic);
+  pointer-events: none;
+}
+.project-card:hover .card-glow { opacity: 0.55; }
+
+.card-meta { margin-top: 1rem; }
+.card-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--card-accent, var(--color-orange));
+  margin-bottom: 0.45rem;
+}
+.card-meta h3 {
+  font-size: 1.08rem;
+  margin-bottom: 0.35rem;
+}
+.card-meta p {
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+}
+
+/* =========================================================
+   LIGHTBOX
+   ========================================================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease-cinematic), visibility 0.45s;
+}
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-m);
+  transform: translateY(24px) scale(0.98);
+  filter: blur(6px);
+  opacity: 0;
+  transition: transform 0.5s var(--ease-cinematic), filter 0.5s var(--ease-cinematic), opacity 0.5s var(--ease-cinematic);
+}
+.lightbox.is-open .lightbox-panel {
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  opacity: 1;
+}
+
+.lightbox-image { aspect-ratio: 16 / 9; }
+.lightbox-image svg { width: 100%; height: 100%; }
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  color: var(--color-on-dark);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background-color 0.3s;
+}
+.lightbox-close:hover { background: var(--color-ink); }
+.lightbox-close svg { width: 16px; height: 16px; }
+
+.lightbox-body { padding: 1.8rem 2rem 2.2rem; }
+.lightbox-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--card-accent, var(--color-orange));
+  margin-bottom: 0.6rem;
+}
+.lightbox-body h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+.lightbox-body p {
+  font-size: 0.98rem;
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+.lightbox-note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+body.lightbox-open { overflow: hidden; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 980px) {
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .filter-tabs { display: flex; width: 100%; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tab { flex-shrink: 0; }
+}
+@media (max-width: 620px) {
+  .project-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card { opacity: 1; transform: none; filter: none; }
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Shubham Shah</title>
+<meta name="description" content="Get in touch with Shubham Shah about mobile app development, Flutter, React Native, or API integration work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/content-store.js"></script>
+<script src="js/theme-store.js"></script>
+<link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ================= NAVIGATION ================= -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">SS</span>
+      <span class="brand-name">Shubham&nbsp;Shah</span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="portfolio.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="achievements.html" class="nav-link">Achievements</a>
+      <a href="contact.html" class="nav-link is-active">Contact</a>
+    </nav>
+
+    <a href="contact.html" class="btn btn-outline nav-cta">Let's Talk</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="page-hero reveal-item">
+    <div class="ambient-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="section-inner">
+      <p class="hero-eyebrow">Contact</p>
+      <h1 class="page-hero-title">Let's Work Together</h1>
+      <p class="page-hero-sub" id="contactIntroText">Have an idea, a problem to solve, or a mobile app to build? Let's turn it into something real.</p>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="contact-section">
+    <div class="section-inner contact-grid">
+
+      <!-- LEFT: intro + contact info -->
+      <div class="contact-info-col">
+
+        <div class="contact-intro reveal-item">
+          <h2>Get in touch</h2>
+          <p>Whether you're a founder, a recruiter, or a team with a mobile app to build — I read every message myself and reply personally.</p>
+        </div>
+
+        <div class="contact-details reveal-item">
+          <a class="contact-line" id="contactEmailLink" href="mailto:shubhamshah9097@gmail.com">
+            <span class="contact-line-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.4l8 5.6 8-5.6V6H4zm16 2.4-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4z"/></svg>
+            </span>
+            <span class="contact-line-text">
+              <span class="contact-line-label">Email</span>
+              <span class="contact-line-value" id="contactEmailText">shubhamshah9097@gmail.com</span>
+            </span>
+          </a>
+
+          <a class="contact-line" id="contactWhatsappLink" href="https://wa.me/918200495373" target="_blank" rel="noopener noreferrer" style="--card-accent: var(--color-blue);">
+            <span class="contact-line-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 2a8 8 0 0 1 6.9 12.1l-.3.5.6 2.2-2.3-.6-.5.3A8 8 0 1 1 12 4zm-3.4 4.3c-.2 0-.5 0-.7.4-.3.4-1 1-1 2.3s1 2.6 1.1 2.8c.2.2 2 3 4.7 4.2 2.4 1 2.4.7 2.8.6.5 0 1.5-.6 1.7-1.1.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.4-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.9 1.1-.1.2-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.6-.9-2.1-.2-.5-.4-.5-.6-.5h-.2z"/></svg>
+            </span>
+            <span class="contact-line-text">
+              <span class="contact-line-label">WhatsApp</span>
+              <span class="contact-line-value" id="contactWhatsappText">+91-8200495373</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="contact-social reveal-item">
+          <span class="contact-social-label">Follow along</span>
+          <div class="contact-social-icons">
+            <a href="https://www.instagram.com" id="socialInstagramLink" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .3 2.4.5.6.2 1 .6 1.5 1 .4.5.8.9 1 1.5.2.4.4 1.2.5 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 2-.5 2.4-.2.6-.6 1-1 1.5-.5.4-.9.8-1.5 1-.4.2-1.2.4-2.4.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.3-2.4-.5-.6-.2-1-.6-1.5-1-.4-.5-.8-.9-1-1.5-.2-.4-.4-1.2-.5-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-2 .5-2.4.2-.6.6-1 1-1.5.5-.4.9-.8 1.5-1 .4-.2 1.2-.4 2.4-.5C8.4 2.2 8.8 2.2 12 2.2zm0 2c-3.1 0-3.5 0-4.7.1-1 .1-1.6.2-1.9.4-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.2.3-.3.9-.4 1.9C3.2 9.5 3.2 9.9 3.2 13s0 3.5.1 4.7c.1 1 .2 1.6.4 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.2.9.3 1.9.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1-.1 1.6-.2 1.9-.4.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.2-.3.3-.9.4-1.9.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1-.2-1.6-.4-1.9-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.3-.2-.9-.3-1.9-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.5a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm0 2a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6zm5.5-2.7a1.24 1.24 0 1 1 0 2.48 1.24 1.24 0 0 1 0-2.48z"/></svg>
+            </a>
+            <a href="https://www.youtube.com" id="socialYoutubeLink" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M22.5 7.2s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C15.8 3.6 12 3.6 12 3.6h-.1s-3.8 0-7.3.3c-.5.1-1.4.1-2.3 1-.7.7-.9 2.3-.9 2.3S1.2 9 1.2 10.9v1.9c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.2.3 7.2.3s3.8 0 7.3-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7v-1.9c0-1.9-.2-3.7-.2-3.7zM9.7 15V8.9l6 3-6 3.1z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: contact form -->
+      <div class="contact-form-col reveal-item">
+        <form class="contact-form" id="contactForm" novalidate>
+
+          <div class="form-field" data-reveal>
+            <label for="fieldName">Name</label>
+            <input type="text" id="fieldName" name="name" placeholder="Your full name" autocomplete="name">
+            <span class="field-error" id="errorName"></span>
+          </div>
+
+          <div class="form-field" data-reveal>
+            <label for="fieldEmail">Email</label>
+            <input type="email" id="fieldEmail" name="email" placeholder="you@example.com" autocomplete="email">
+            <span class="field-error" id="errorEmail"></span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field" data-reveal>
+              <label for="fieldProjectType">Project Type</label>
+              <select id="fieldProjectType" name="projectType">
+                <option value="" selected disabled>Select a project type</option>
+                <option value="Mobile App Development">Mobile App Development</option>
+                <option value="Flutter Development">Flutter Development</option>
+                <option value="React Native Development">React Native Development</option>
+                <option value="UI/UX Implementation">UI/UX Implementation</option>
+                <option value="API Integration">API Integration</option>
+                <option value="Existing App Improvements">Existing App Improvements</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="field-error" id="errorProjectType"></span>
+            </div>
+
+            <div class="form-field" data-reveal>
+              <label for="fieldBudget">Budget <span class="field-optional">(optional)</span></label>
+              <!-- Budget tiers are intentionally descriptive rather than fixed numbers —
+                   easy to swap for real ranges later via the Admin Panel. -->
+              <select id="fieldBudget" name="budget">
+                <option value="" selected>Prefer to discuss</option>
+                <option value="Not sure yet">Not sure yet</option>
+                <option value="Small project / MVP">Small project / MVP</option>
+                <option value="Medium-sized project">Medium-sized project</option>
+                <option value="Large / ongoing project">Large / ongoing project</option>
+                <option value="Enterprise">Enterprise</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field" data-reveal>
+            <label for="fieldMessage">Message</label>
+            <textarea id="fieldMessage" name="message" rows="5" placeholder="Tell me a bit about your project, timeline, and what you're looking to build..."></textarea>
+            <span class="field-error" id="errorMessage"></span>
+          </div>
+
+          <div class="form-submit-row" data-reveal>
+            <button type="submit" class="btn btn-primary btn-large form-submit">Send Message</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark">SS</span>
+      <p>Shubham Shah<br>Software Engineer &amp; Flutter/React Native Developer</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.24h4.5V23h-4.5V8.24zM8.5 8.24h4.32v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.9c0-1.65-.03-3.78-2.3-3.78-2.3 0-2.66 1.8-2.66 3.66V23h-4.5V8.24z"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.8 5.4.8 11.7c0 5 3.2 9.2 7.7 10.7.6.1.8-.2.8-.6v-2.2c-3.1.7-3.8-1.5-3.8-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.8-1.6-2.5-.3-5.1-1.2-5.1-5.5 0-1.2.4-2.2 1.2-3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3 0 4.3-2.6 5.2-5.1 5.5.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.5-1.5 7.7-5.7 7.7-10.7C23.2 5.4 18.3.5 12 .5z"/></svg></a>
+        <a href="#" aria-label="Twitter / X"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23.3 22H16.9l-5-6.5L6.1 22H3l8.1-9.3L2 2h6.6l4.5 6 5.8-6zm-1.2 18h1.7L7.4 3.9H5.6L17.7 20z"/></svg></a>
+        <a href="#" id="footerEmailLink" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.4l8 5.6 8-5.6V6H4zm16 2.4-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4z"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p id="footerNote">© 2026 Shubham Shah. All rights reserved.</p>
+    <a href="admin.html" class="footer-admin-link">Admin</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/contact-render.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

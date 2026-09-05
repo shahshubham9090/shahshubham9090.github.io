@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Shubham Shah</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/content-store.js"></script>
+<script src="js/theme-store.js"></script>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<!-- ================= LOGIN SCREEN ================= -->
+<div class="admin-login-screen" id="loginScreen">
+  <div class="admin-login-card">
+    <div class="admin-login-brand">
+      <span class="brand-mark">SS</span>
+      <span>Admin Panel</span>
+    </div>
+    <h1>Log in to manage your site</h1>
+    <p class="admin-login-sub">Enter your admin credentials to edit content, images, and theme colors.</p>
+
+    <form id="loginForm" novalidate>
+      <div class="form-field">
+        <label for="loginUsername">Username</label>
+        <input type="text" id="loginUsername" name="username" autocomplete="username" placeholder="Username">
+      </div>
+      <div class="form-field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" name="password" autocomplete="current-password" placeholder="Password">
+      </div>
+      <p class="admin-login-error" id="loginError"></p>
+      <button type="submit" class="btn btn-primary btn-large admin-login-submit">Log In</button>
+    </form>
+
+    <a href="index.html" class="admin-back-link">← Back to live site</a>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD SCREEN ================= -->
+<div class="admin-shell" id="dashboardScreen" hidden>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <span class="brand-mark">SS</span>
+      <span>Admin Panel</span>
+    </div>
+    <div class="admin-topbar-actions">
+      <a href="index.html" target="_blank" class="admin-topbar-link">View Live Site ↗</a>
+      <span class="admin-topbar-user" id="topbarUsername">shubham2413</span>
+      <button class="btn btn-outline admin-logout-btn" id="logoutBtn">Log Out</button>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+
+    <nav class="admin-sidebar" id="adminSidebar">
+      <button class="admin-nav-item is-active" data-panel="dashboard">Dashboard</button>
+      <button class="admin-nav-item" data-panel="home">Home Page</button>
+      <button class="admin-nav-item" data-panel="portfolio">Portfolio Page</button>
+      <button class="admin-nav-item" data-panel="about">About Page</button>
+      <button class="admin-nav-item" data-panel="services">Services</button>
+      <button class="admin-nav-item" data-panel="achievements">Awards &amp; Achievements</button>
+      <button class="admin-nav-item" data-panel="contact">Contact Information</button>
+      <button class="admin-nav-item" data-panel="images">Images &amp; Media</button>
+      <button class="admin-nav-item" data-panel="social">Social Media Links</button>
+      <button class="admin-nav-item" data-panel="themes">Color Themes</button>
+      <button class="admin-nav-item" data-panel="settings">Website Settings</button>
+      <button class="admin-nav-item" data-panel="account">Admin Account</button>
+    </nav>
+
+    <main class="admin-main">
+
+      <!-- ---------- DASHBOARD ---------- -->
+      <section class="admin-panel is-active" data-panel="dashboard">
+        <h2>Dashboard</h2>
+        <p class="admin-panel-sub">Everything on your site can be edited from here — no code required. Pick a section to get started.</p>
+        <div class="admin-dash-grid" id="dashGrid"></div>
+      </section>
+
+      <!-- ---------- HOME PAGE ---------- -->
+      <section class="admin-panel" data-panel="home">
+        <h2>Home Page</h2>
+        <p class="admin-panel-sub">Edit the hero introduction and the key numbers shown on your Home page.</p>
+
+        <div class="admin-card">
+          <h3>Hero Section</h3>
+          <div class="admin-form-grid">
+            <div class="form-field">
+              <label for="homeFirstName">First name</label>
+              <input type="text" id="homeFirstName">
+            </div>
+            <div class="form-field">
+              <label for="homeLastName">Last name</label>
+              <input type="text" id="homeLastName">
+            </div>
+            <div class="form-field form-field-full">
+              <label for="homeEyebrow">Title line</label>
+              <input type="text" id="homeEyebrow">
+            </div>
+            <div class="form-field form-field-full">
+              <label for="homeTagline">Tagline</label>
+              <input type="text" id="homeTagline">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Key Numbers</h3>
+          <div class="admin-stats-editor" id="statsEditor"></div>
+        </div>
+
+        <button class="btn btn-primary" id="saveHomeBtn">Save Home Page Changes</button>
+        <span class="admin-save-msg" id="homeSaveMsg"></span>
+      </section>
+
+      <!-- ---------- PORTFOLIO PAGE ---------- -->
+      <section class="admin-panel" data-panel="portfolio">
+        <h2>Portfolio Page</h2>
+        <p class="admin-panel-sub">Add, edit, or remove the projects shown on your Portfolio page and in the Home page's Featured Work section.</p>
+
+        <div class="admin-list" id="portfolioList"></div>
+        <button class="btn btn-outline" id="addProjectBtn">+ Add Project</button>
+        <br><br>
+        <button class="btn btn-primary" id="savePortfolioBtn">Save Portfolio Changes</button>
+        <span class="admin-save-msg" id="portfolioSaveMsg"></span>
+      </section>
+
+      <!-- ---------- ABOUT PAGE ---------- -->
+      <section class="admin-panel" data-panel="about">
+        <h2>About Page</h2>
+        <p class="admin-panel-sub">Edit your story, quick facts, and mission statement.</p>
+
+        <div class="admin-card">
+          <h3>Photo</h3>
+          <div class="admin-image-row">
+            <div class="admin-image-preview" id="aboutPhotoPreview">No custom photo set</div>
+            <div class="admin-image-controls">
+              <label class="btn btn-outline admin-upload-btn">Upload Photo<input type="file" accept="image/*" id="aboutPhotoInput" hidden></label>
+              <button class="btn btn-ghost" id="aboutPhotoRemoveBtn">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Quick Facts</h3>
+          <div class="admin-form-grid">
+            <div class="form-field"><label for="factLocationInput">Based in</label><input type="text" id="factLocationInput"></div>
+            <div class="form-field"><label for="factFocusInput">Focus</label><input type="text" id="factFocusInput"></div>
+            <div class="form-field"><label for="factExperienceInput">Experience</label><input type="text" id="factExperienceInput"></div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>My Story</h3>
+          <p class="admin-hint">Separate paragraphs with a blank line.</p>
+          <textarea id="storyTextarea" rows="14"></textarea>
+        </div>
+
+        <div class="admin-card">
+          <h3>Mission Statement</h3>
+          <textarea id="missionTextarea" rows="3"></textarea>
+        </div>
+
+        <div class="admin-card">
+          <h3>Work Experience</h3>
+          <p class="admin-hint">Shown as the timeline on your About page. List one line per bullet point.</p>
+          <div class="admin-list" id="experienceList"></div>
+          <button class="btn btn-outline" id="addExperienceBtn" type="button">+ Add Role</button>
+        </div>
+
+        <button class="btn btn-primary" id="saveAboutBtn">Save About Page Changes</button>
+        <span class="admin-save-msg" id="aboutSaveMsg"></span>
+      </section>
+
+      <!-- ---------- SERVICES ---------- -->
+      <section class="admin-panel" data-panel="services">
+        <h2>Services</h2>
+        <p class="admin-panel-sub">Add, edit, remove, and price the services shown on your Services page (and mirrored on the Home page teaser).</p>
+
+        <div class="admin-list" id="servicesList"></div>
+        <button class="btn btn-outline" id="addServiceBtn">+ Add Service</button>
+        <br><br>
+        <button class="btn btn-primary" id="saveServicesBtn">Save Service Changes</button>
+        <span class="admin-save-msg" id="servicesSaveMsg"></span>
+      </section>
+
+      <!-- ---------- ACHIEVEMENTS ---------- -->
+      <section class="admin-panel" data-panel="achievements">
+        <h2>Awards &amp; Achievements</h2>
+        <p class="admin-panel-sub">Add, edit, or remove the milestones shown on your Achievements page.</p>
+
+        <div class="admin-list" id="achievementsList"></div>
+        <button class="btn btn-outline" id="addAchievementBtn">+ Add Achievement</button>
+        <br><br>
+        <button class="btn btn-primary" id="saveAchievementsBtn">Save Achievement Changes</button>
+        <span class="admin-save-msg" id="achievementsSaveMsg"></span>
+      </section>
+
+      <!-- ---------- CONTACT ---------- -->
+      <section class="admin-panel" data-panel="contact">
+        <h2>Contact Information</h2>
+        <p class="admin-panel-sub">Update the email, WhatsApp number, and intro message shown on your Contact page.</p>
+
+        <div class="admin-card">
+          <div class="admin-form-grid">
+            <div class="form-field"><label for="contactEmailInput">Email</label><input type="email" id="contactEmailInput"></div>
+            <div class="form-field"><label for="contactWhatsappInput">WhatsApp Number</label><input type="text" id="contactWhatsappInput" placeholder="+91-XXXXXXXXXX"></div>
+            <div class="form-field form-field-full"><label for="contactIntroInput">Intro Message</label><textarea id="contactIntroInput" rows="2"></textarea></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="saveContactBtn">Save Contact Changes</button>
+        <span class="admin-save-msg" id="contactSaveMsg"></span>
+      </section>
+
+      <!-- ---------- IMAGES & MEDIA ---------- -->
+      <section class="admin-panel" data-panel="images">
+        <h2>Images &amp; Media</h2>
+        <p class="admin-panel-sub">Every image used on your site, in one place. Uploading here updates the live site immediately.</p>
+
+        <div class="admin-card">
+          <h3>Hero Photo (Home Page)</h3>
+          <div class="admin-image-row">
+            <div class="admin-image-preview" id="heroPhotoPreview">No custom photo set</div>
+            <div class="admin-image-controls">
+              <label class="btn btn-outline admin-upload-btn">Upload Photo<input type="file" accept="image/*" id="heroPhotoInput" hidden></label>
+              <button class="btn btn-ghost" id="heroPhotoRemoveBtn">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>About Photo</h3>
+          <div class="admin-image-row">
+            <div class="admin-image-preview" id="aboutPhotoPreview2">No custom photo set</div>
+            <div class="admin-image-controls">
+              <label class="btn btn-outline admin-upload-btn">Upload Photo<input type="file" accept="image/*" id="aboutPhotoInput2" hidden></label>
+              <button class="btn btn-ghost" id="aboutPhotoRemoveBtn2">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Portfolio Project Thumbnails</h3>
+          <div class="admin-thumb-grid" id="thumbGrid"></div>
+        </div>
+      </section>
+
+      <!-- ---------- SOCIAL MEDIA LINKS ---------- -->
+      <section class="admin-panel" data-panel="social">
+        <h2>Social Media Links</h2>
+        <p class="admin-panel-sub">Update where your Instagram and YouTube icons link to on the Contact page.</p>
+
+        <div class="admin-card">
+          <div class="admin-form-grid">
+            <div class="form-field"><label for="socialInstagramInput">Instagram URL</label><input type="url" id="socialInstagramInput"></div>
+            <div class="form-field"><label for="socialYoutubeInput">YouTube URL</label><input type="url" id="socialYoutubeInput"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="saveSocialBtn">Save Social Links</button>
+        <span class="admin-save-msg" id="socialSaveMsg"></span>
+      </section>
+
+      <!-- ---------- THEMES ---------- -->
+      <section class="admin-panel" data-panel="themes">
+        <h2>Color Themes</h2>
+        <p class="admin-panel-sub">Pick a complete color theme for your entire site. It applies instantly and stays selected after refreshing.</p>
+
+        <div class="admin-theme-grid" id="themeGrid"></div>
+      </section>
+
+      <!-- ---------- WEBSITE SETTINGS ---------- -->
+      <section class="admin-panel" data-panel="settings">
+        <h2>Website Settings</h2>
+
+        <div class="admin-card">
+          <h3>Footer Text</h3>
+          <input type="text" id="footerNoteInput">
+          <br><br>
+          <button class="btn btn-primary" id="saveSettingsBtn">Save</button>
+          <span class="admin-save-msg" id="settingsSaveMsg"></span>
+        </div>
+
+        <div class="admin-card">
+          <h3>Backup Your Content</h3>
+          <p class="admin-hint">Download a backup file of everything on your site, or restore from a previous backup.</p>
+          <button class="btn btn-outline" id="exportBtn">Download Backup</button>
+          <label class="btn btn-outline admin-upload-btn">Restore from Backup<input type="file" accept="application/json" id="importInput" hidden></label>
+        </div>
+
+        <div class="admin-card admin-card-danger">
+          <h3>Reset Everything</h3>
+          <p class="admin-hint">This puts every page back to its original starting content. This cannot be undone.</p>
+          <button class="btn btn-ghost admin-danger-btn" id="resetBtn">Reset to Default Content</button>
+        </div>
+
+        <div class="admin-card">
+          <h3>How This Works</h3>
+          <p class="admin-hint">
+            This site has no external database — your changes are saved securely in this browser
+            and instantly reflected on every page. Once you upload these files to real web hosting,
+            visitors will see the same saved content you see here. See the chat for full upload
+            instructions.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- ADMIN ACCOUNT ---------- -->
+      <section class="admin-panel" data-panel="account">
+        <h2>Admin Account</h2>
+        <p class="admin-panel-sub">Change your login username and password. You'll need your current password to confirm the change.</p>
+
+        <div class="admin-card">
+          <form id="accountForm" class="admin-form-grid">
+            <div class="form-field form-field-full">
+              <label for="currentPasswordInput">Current Password</label>
+              <input type="password" id="currentPasswordInput" autocomplete="current-password">
+            </div>
+            <div class="form-field">
+              <label for="newUsernameInput">New Username</label>
+              <input type="text" id="newUsernameInput" autocomplete="username">
+            </div>
+            <div class="form-field">
+              <label for="newPasswordInput">New Password</label>
+              <input type="password" id="newPasswordInput" autocomplete="new-password">
+            </div>
+            <div class="form-field form-field-full">
+              <label for="confirmPasswordInput">Confirm New Password</label>
+              <input type="password" id="confirmPasswordInput" autocomplete="new-password">
+            </div>
+          </form>
+          <p class="admin-account-error" id="accountError"></p>
+          <button class="btn btn-primary" id="saveAccountBtn">Update Login Details</button>
+          <span class="admin-save-msg" id="accountSaveMsg"></span>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/admin-auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

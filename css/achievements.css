@@ -1,0 +1,174 @@
+/* =========================================================
+   ACHIEVEMENTS PAGE — extends design system from styles.css
+   ========================================================= */
+
+.achv-section {
+  padding: clamp(3rem, 8vh, 5rem) 0 clamp(5rem, 10vh, 7rem);
+}
+
+.achv-timeline {
+  position: relative;
+  max-width: 760px;
+  padding-left: 3.2rem;
+}
+
+/* base (inactive) track */
+.achv-track {
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--color-line);
+  border-radius: 2px;
+}
+
+/* animated fill that grows as milestones are revealed */
+.achv-track-fill {
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--color-orange), var(--color-blue));
+  border-radius: 2px;
+  transition: height 0.9s var(--ease-cinematic);
+}
+
+.achv-item {
+  position: relative;
+  margin-bottom: 3.2rem;
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(4px);
+  transition:
+    opacity 0.75s var(--ease-cinematic),
+    transform 0.75s var(--ease-cinematic),
+    filter 0.75s var(--ease-cinematic);
+}
+.achv-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+.achv-item:last-child { margin-bottom: 0; }
+
+.achv-dot {
+  position: absolute;
+  left: -3.2rem;
+  top: 1.7rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-line);
+  transform: scale(0.7);
+  transition: border-color 0.5s var(--ease-cinematic), transform 0.5s var(--ease-cinematic), background-color 0.5s var(--ease-cinematic);
+}
+.achv-item.is-visible .achv-dot {
+  transform: scale(1);
+  border-color: var(--card-accent, var(--color-orange));
+}
+.achv-item.is-visible .achv-dot::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--card-accent, var(--color-orange));
+}
+
+.achv-item:nth-child(1) { --card-accent: var(--color-orange); }
+.achv-item:nth-child(2) { --card-accent: var(--color-blue); }
+.achv-item:nth-child(3) { --card-accent: var(--color-orange); }
+.achv-item:nth-child(4) { --card-accent: var(--color-blue); }
+.achv-item:nth-child(5) { --card-accent: var(--color-orange); }
+
+.achv-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-m);
+  padding: 2rem 2.2rem;
+  transition: transform 0.45s var(--ease-cinematic), border-color 0.45s var(--ease-cinematic), box-shadow 0.45s var(--ease-cinematic);
+}
+.achv-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--card-accent, var(--color-orange)) 40%, var(--color-line));
+  box-shadow: 0 22px 44px -26px color-mix(in srgb, var(--card-accent, var(--color-orange)) 50%, transparent);
+}
+
+.achv-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.3rem;
+}
+.achv-stage {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--card-accent, var(--color-orange));
+}
+.achv-year {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+}
+
+.achv-icon {
+  width: 38px;
+  height: 38px;
+  color: var(--card-accent, var(--color-orange));
+  margin-bottom: 1.2rem;
+  transition: transform 0.45s var(--ease-cinematic);
+}
+.achv-icon svg { width: 100%; height: 100%; }
+.achv-card:hover .achv-icon { transform: scale(1.12) rotate(-6deg); }
+
+.achv-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.7rem;
+}
+.achv-card > p {
+  font-size: 0.97rem;
+  color: var(--color-ink-soft);
+  line-height: 1.65;
+}
+
+.achv-why {
+  margin-top: 1.3rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--color-bg-alt);
+  border-left: 2px solid var(--card-accent, var(--color-orange));
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+}
+.achv-why-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--card-accent, var(--color-orange));
+  margin-bottom: 0.35rem;
+}
+.achv-why p {
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 620px) {
+  .achv-timeline { padding-left: 2.4rem; }
+  .achv-dot { left: -2.4rem; width: 16px; height: 16px; top: 1.9rem; }
+  .achv-track, .achv-track-fill { left: 7px; }
+  .achv-card { padding: 1.6rem 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achv-item { opacity: 1; transform: none; filter: none; }
+  .achv-item .achv-dot { transform: scale(1); border-color: var(--card-accent, var(--color-orange)); }
+}

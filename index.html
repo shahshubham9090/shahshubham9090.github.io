@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shubham Shah — Software Engineer &amp; Flutter/React Native Developer</title>
+<meta name="description" content="Shubham Shah — Software Engineer and Mobile App Developer. From idea to app, building experiences that make an impact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/content-store.js"></script>
+<script src="js/theme-store.js"></script>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ================= NAVIGATION ================= -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">SS</span>
+      <span class="brand-name">Shubham&nbsp;Shah</span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link is-active">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="portfolio.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="achievements.html" class="nav-link">Achievements</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+
+    <a href="contact.html" class="btn btn-outline nav-cta">Let's Talk</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero">
+    <div class="hero-grid-lines" aria-hidden="true"></div>
+    <div class="hero-inner">
+
+      <div class="hero-copy">
+        <p class="hero-eyebrow" id="heroEyebrow">Software Engineer — Mobile App Developer</p>
+        <h1 class="hero-name">
+          <span id="heroFirstName">Shubham</span><br>
+          <span class="hero-name-accent" id="heroLastName">Shah</span>
+        </h1>
+        <p class="hero-tagline" id="heroTagline">From Idea to App — Building Experiences That Make an Impact.</p>
+
+        <div class="hero-actions">
+          <a href="portfolio.html" class="btn btn-primary">View My Work</a>
+          <a href="contact.html" class="btn btn-ghost">Start a Project</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-frame">
+          <div class="hero-photo-corner tl" aria-hidden="true"></div>
+          <div class="hero-photo-corner tr" aria-hidden="true"></div>
+          <div class="hero-photo-corner bl" aria-hidden="true"></div>
+          <div class="hero-photo-corner br" aria-hidden="true"></div>
+
+          <div class="hero-photo-glow" aria-hidden="true"></div>
+
+          <div class="hero-photo" data-admin-field="hero-photo" id="heroPhoto">
+            <svg viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder professional headshot of Shubham Shah">
+              <rect width="400" height="480" fill="#2A2825"/>
+              <circle cx="200" cy="190" r="80" fill="#4A463E"/>
+              <path d="M60 480 C60 360 320 360 340 480 Z" fill="#4A463E"/>
+              <circle cx="200" cy="190" r="80" fill="none" stroke="#FF4E1F" stroke-width="1.5" opacity="0.5"/>
+            </svg>
+          </div>
+        </div>
+        <span class="hero-photo-caption">Photo — to be updated via Admin Panel</span>
+      </div>
+
+    </div>
+    <a href="#stats" class="hero-scroll-cue" aria-label="Scroll to next section">
+      <span class="scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- ================= TECH MARQUEE ================= -->
+  <div class="marquee" aria-label="Technologies I work with">
+    <div class="marquee-track">
+      <span class="marquee-item">Flutter</span>
+      <span class="marquee-item">React Native</span>
+      <span class="marquee-item">Firebase</span>
+      <span class="marquee-item">BLoC</span>
+      <span class="marquee-item">Provider</span>
+      <span class="marquee-item">GetX</span>
+      <span class="marquee-item">REST APIs</span>
+      <span class="marquee-item">WebSockets</span>
+      <span class="marquee-item">Play Store &amp; App Store</span>
+      <span class="marquee-item" aria-hidden="true">Flutter</span>
+      <span class="marquee-item" aria-hidden="true">React Native</span>
+      <span class="marquee-item" aria-hidden="true">Firebase</span>
+      <span class="marquee-item" aria-hidden="true">BLoC</span>
+      <span class="marquee-item" aria-hidden="true">Provider</span>
+      <span class="marquee-item" aria-hidden="true">GetX</span>
+      <span class="marquee-item" aria-hidden="true">REST APIs</span>
+      <span class="marquee-item" aria-hidden="true">WebSockets</span>
+      <span class="marquee-item" aria-hidden="true">Play Store &amp; App Store</span>
+    </div>
+  </div>
+
+  <!-- ================= STATS ================= -->
+  <section class="stats" id="stats">
+    <div class="ambient-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="section-inner stats-inner">
+      <div class="stat-item reveal" data-count="5" data-suffix="+">
+        <span class="stat-number"><span class="stat-value">0</span><span class="stat-suffix">+</span></span>
+        <span class="stat-label">Projects Completed</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item reveal" style="--reveal-delay:0.08s" data-count="7" data-suffix="+">
+        <span class="stat-number"><span class="stat-value">0</span><span class="stat-suffix">+</span></span>
+        <span class="stat-label">Happy Clients</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item reveal" style="--reveal-delay:0.16s" data-count="2.5" data-suffix="+" data-decimal="1">
+        <span class="stat-number"><span class="stat-value">0</span><span class="stat-suffix">+</span></span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+
+      <div class="stat-item reveal" style="--reveal-delay:0.24s" data-count="4.9" data-suffix="/5" data-decimal="1">
+        <span class="stat-number"><span class="stat-value">0</span><span class="stat-suffix">/5</span></span>
+        <span class="stat-label">Average Client Rating</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES TEASER ================= -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <div class="section-heading reveal">
+        <h2>What I build</h2>
+        <p>Structured engineering, designed with intent — from first sketch to shipped product.</p>
+      </div>
+
+      <div class="services-grid" id="homeServicesGrid">
+        <!-- service teaser cards injected by js/home-render.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED WORK ================= -->
+  <section class="work" id="work">
+    <div class="section-inner">
+      <div class="section-heading reveal">
+        <h2>Featured work</h2>
+        <p>A short selection of recent builds. The full case-study archive lives on the Portfolio page.</p>
+      </div>
+
+      <div class="work-grid" id="homeWorkGrid">
+        <!-- featured project tiles injected by js/home-render.js -->
+      </div>
+
+      <div class="work-cta reveal">
+        <a href="portfolio.html" class="btn btn-outline">View Full Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="closing-cta">
+    <div class="ambient-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="section-inner closing-cta-inner reveal">
+      <h2>Have a project in mind?<br>Let's build it well.</h2>
+      <a href="contact.html" class="btn btn-primary btn-large">Get In Touch</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark">SS</span>
+      <p>Shubham Shah<br>Software Engineer &amp; Flutter/React Native Developer</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.24h4.5V23h-4.5V8.24zM8.5 8.24h4.32v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.9c0-1.65-.03-3.78-2.3-3.78-2.3 0-2.66 1.8-2.66 3.66V23h-4.5V8.24z"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.8 5.4.8 11.7c0 5 3.2 9.2 7.7 10.7.6.1.8-.2.8-.6v-2.2c-3.1.7-3.8-1.5-3.8-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.8-1.6-2.5-.3-5.1-1.2-5.1-5.5 0-1.2.4-2.2 1.2-3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3 0 4.3-2.6 5.2-5.1 5.5.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.5-1.5 7.7-5.7 7.7-10.7C23.2 5.4 18.3.5 12 .5z"/></svg></a>
+        <a href="#" aria-label="Twitter / X"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23.3 22H16.9l-5-6.5L6.1 22H3l8.1-9.3L2 2h6.6l4.5 6 5.8-6zm-1.2 18h1.7L7.4 3.9H5.6L17.7 20z"/></svg></a>
+        <a href="#" id="footerEmailLink" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.4l8 5.6 8-5.6V6H4zm16 2.4-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4z"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p id="footerNote">© 2026 Shubham Shah. All rights reserved.</p>
+    <a href="admin.html" class="footer-admin-link">Admin</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/home-render.js"></script>
+</body>
+</html>
