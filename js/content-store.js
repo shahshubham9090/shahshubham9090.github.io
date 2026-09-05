@@ -29,7 +29,7 @@
     api: 'API Integration & Development',
   };
 
-  const ACCENT_ROTATION = ['var(--color-orange)', 'var(--color-blue)', 'var(--color-ink-soft)'];
+  const ACCENT_ROTATION = ['var(--color-orange)', 'var(--color-blue)', 'var(--color-muted)'];
 
   function accentForIndex(i) {
     return ACCENT_ROTATION[i % ACCENT_ROTATION.length];
@@ -46,7 +46,7 @@
 
   const DEFAULTS = {
     site: {
-      theme: 'sunset',
+      theme: 'midnight',
       footerNote: '© 2026 Shubham Shah. All rights reserved.',
     },
     hero: {

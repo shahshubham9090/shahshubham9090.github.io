@@ -214,7 +214,7 @@
 .mission-section {
   position: relative;
   overflow: hidden;
-  background: var(--color-ink);
+  background: var(--color-bg-alt);
   color: var(--color-on-dark);
   padding: clamp(5rem, 14vh, 8rem) 0;
 }

@@ -44,10 +44,10 @@
   bottom: 0.35rem;
   left: 0.35rem;
   width: 0;
-  background: var(--color-ink);
+  background: linear-gradient(135deg, var(--color-orange), var(--color-blue));
   border-radius: 999px;
   transition: transform 0.5s var(--ease-cinematic), width 0.5s var(--ease-cinematic);
-  filter: drop-shadow(0 4px 14px color-mix(in srgb, var(--color-ink) 25%, transparent));
+  filter: drop-shadow(0 4px 14px color-mix(in srgb, var(--color-blue) 35%, transparent));
 }
 
 /* ---------- Project grid ---------- */
@@ -161,7 +161,7 @@
 .lightbox-backdrop {
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  background: rgba(5, 5, 10, 0.78);
   backdrop-filter: blur(14px);
 }
 
@@ -197,15 +197,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
-  color: var(--color-on-dark);
+  background: rgba(5, 5, 10, 0.55);
+  color: #fff;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   backdrop-filter: blur(6px);
   transition: background-color 0.3s;
 }
-.lightbox-close:hover { background: var(--color-ink); }
+.lightbox-close:hover { background: rgba(5, 5, 10, 0.85); }
 .lightbox-close svg { width: 16px; height: 16px; }
 
 .lightbox-body { padding: 1.8rem 2rem 2.2rem; }
