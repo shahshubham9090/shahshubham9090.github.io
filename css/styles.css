@@ -318,7 +318,7 @@ p { margin: 0; }
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(3rem, 8vh, 6rem) 0 clamp(2rem, 6vh, 4rem);
+  padding: clamp(3rem, 8vh, 6rem) 0 clamp(1rem, 2.5vh, 1.5rem);
 }
 
 .hero-grid-lines {
@@ -528,7 +528,7 @@ p { margin: 0; }
   z-index: 1;
   display: flex;
   justify-content: center;
-  margin-top: clamp(2rem, 6vh, 4rem);
+  margin-top: clamp(1rem, 2.5vh, 1.5rem);
 }
 .scroll-line {
   width: 1px;
