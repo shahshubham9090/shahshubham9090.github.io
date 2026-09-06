@@ -962,9 +962,11 @@ p { margin: 0; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
-}
+/* Intentionally keeps scrolling even under prefers-reduced-motion: this
+   is a simple, gentle horizontal drift (no flashing/zooming), and it's
+   the site's most visible "attention-grabbing" animation - unlike the
+   rest of the site's motion, it stays active regardless of the
+   visitor's OS-level reduce-motion preference. */
 
 /* =========================================================
    RESPONSIVE
