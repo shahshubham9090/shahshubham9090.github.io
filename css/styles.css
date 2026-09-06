@@ -908,6 +908,13 @@ p { margin: 0; }
 .ambient-blobs span:nth-child(1) { width: 340px; height: 340px; background: var(--color-orange); top: -12%; left: 6%; }
 .ambient-blobs span:nth-child(2) { width: 280px; height: 280px; background: var(--color-blue); bottom: -18%; right: 8%; animation-delay: -6s; animation-duration: 20s; }
 .ambient-blobs span:nth-child(3) { width: 200px; height: 200px; background: var(--color-orange); top: 35%; right: 28%; animation-delay: -10s; animation-duration: 24s; }
+
+/* Hero-specific variant: pushes the glow out toward the far edges of
+   very wide viewports, so the empty margins beside the centered
+   max-width content don't feel bare. */
+.hero-edge-blobs span:nth-child(1) { top: 8%; left: -6%; }
+.hero-edge-blobs span:nth-child(2) { bottom: 5%; right: -8%; }
+.hero-edge-blobs span:nth-child(3) { width: 260px; height: 260px; top: 55%; left: -4%; right: auto; animation-delay: -4s; }
 @keyframes blobDrift {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33%      { transform: translate(30px, -25px) scale(1.1); }
