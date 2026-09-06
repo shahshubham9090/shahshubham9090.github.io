@@ -245,15 +245,23 @@ p { margin: 0; }
 .brand-mark {
   width: 34px;
   height: 34px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   background: var(--color-ink);
   color: var(--color-bg);
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.8rem;
-  border-radius: var(--radius-s);
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--color-orange) 55%, var(--color-blue));
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .brand-name {
   font-family: var(--font-display);

@@ -200,6 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (noteEl && content.site && content.site.footerNote) {
         noteEl.textContent = content.site.footerNote;
       }
+      if (content.hero && content.hero.photo) {
+        document.querySelectorAll('.brand-mark img').forEach((img) => {
+          img.src = content.hero.photo;
+        });
+      }
     };
     syncFooter();
     window.SSContent.onChange(syncFooter);
