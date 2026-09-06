@@ -84,7 +84,7 @@
         if (dot) window.setTimeout(() => growFillTo(dot), index * 60 + 150);
         observer.unobserve(el);
       });
-    }, { threshold: 0.35, rootMargin: '0px 0px -80px 0px' });
+    }, { threshold: 0.01, rootMargin: '0px 0px 150px 0px' });
 
     items.forEach((item) => observer.observe(item));
   }

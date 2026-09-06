@@ -124,7 +124,7 @@
         el.classList.add('is-visible');
         revealObserver.unobserve(el);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.01, rootMargin: '0px 0px 150px 0px' });
 
     cardEls.forEach((card) => revealObserver.observe(card));
   }

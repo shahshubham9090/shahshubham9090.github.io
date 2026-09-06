@@ -20,7 +20,7 @@
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
         });
-      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      }, { threshold: 0.01, rootMargin: '0px 0px 150px 0px' });
 
       revealEls.forEach((el) => observer.observe(el));
     }
@@ -43,7 +43,7 @@
           entry.target.classList.add('is-visible');
           fieldObserver.unobserve(entry.target);
         });
-      }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.01, rootMargin: '0px 0px 150px 0px' });
       formFields.forEach((f) => fieldObserver.observe(f));
     }
   }
