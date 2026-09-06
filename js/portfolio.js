@@ -178,6 +178,7 @@
   const lightboxDesc = document.getElementById('lightboxDesc');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+  const lightboxPlayStore = document.getElementById('lightboxPlayStore');
   let lastFocusedEl = null;
 
   function openLightbox(project, index) {
@@ -189,6 +190,16 @@
     lightboxTag.style.color = accent;
     lightboxTitle.textContent = project.title;
     lightboxDesc.textContent = project.description;
+
+    if (lightboxPlayStore) {
+      if (project.playStoreUrl) {
+        lightboxPlayStore.href = project.playStoreUrl;
+        lightboxPlayStore.hidden = false;
+      } else {
+        lightboxPlayStore.hidden = true;
+        lightboxPlayStore.removeAttribute('href');
+      }
+    }
 
     lastFocusedEl = document.activeElement;
     lightbox.classList.add('is-open');

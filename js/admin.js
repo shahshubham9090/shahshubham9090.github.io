@@ -309,6 +309,7 @@
           </div>
         </div>
         <div class="form-field"><label>Description</label><textarea class="proj-desc" rows="2">${escapeHTML(p.description)}</textarea></div>
+        <div class="form-field"><label>Play Store URL <span class="field-optional">(optional)</span></label><input type="url" class="proj-playstore" placeholder="https://play.google.com/store/apps/details?id=..." value="${escapeAttr(p.playStoreUrl || '')}"></div>
         <div class="admin-image-row">
           <div class="admin-image-preview proj-thumb-preview">${thumbPreview}</div>
           <div class="admin-image-controls">
@@ -367,7 +368,7 @@
   const addProjectBtn = $('#addProjectBtn');
   if (addProjectBtn) {
     addProjectBtn.addEventListener('click', () => {
-      const newProject = { id: window.SSContent.newId('proj'), title: 'New Project', category: 'mobile', description: '', thumbnail: null };
+      const newProject = { id: window.SSContent.newId('proj'), title: 'New Project', category: 'mobile', description: '', playStoreUrl: null, thumbnail: null };
       const list = $('#portfolioList');
       list.insertAdjacentHTML('beforeend', projectRowTemplate(newProject, list.children.length));
       wirePortfolioRowEvents();
@@ -401,6 +402,7 @@
           title: $('.proj-title', row).value.trim() || 'Untitled Project',
           category: $('.proj-category', row).value,
           description: $('.proj-desc', row).value.trim(),
+          playStoreUrl: $('.proj-playstore', row).value.trim() || null,
           thumbnail,
           thumbnailPath,
         };
@@ -668,6 +670,8 @@
   /* ---------- SOCIAL PANEL ---------- */
   function renderSocialPanel() {
     const c = window.SSContent.get();
+    $('#socialLinkedinInput').value = c.contact.linkedin || '';
+    $('#socialGithubInput').value = c.contact.github || '';
     $('#socialInstagramInput').value = c.contact.instagram;
     $('#socialYoutubeInput').value = c.contact.youtube;
   }
@@ -675,6 +679,8 @@
   if (saveSocialBtn) {
     saveSocialBtn.addEventListener('click', () => {
       window.SSContent.update((c) => {
+        c.contact.linkedin = $('#socialLinkedinInput').value.trim();
+        c.contact.github = $('#socialGithubInput').value.trim();
         c.contact.instagram = $('#socialInstagramInput').value.trim();
         c.contact.youtube = $('#socialYoutubeInput').value.trim();
       });

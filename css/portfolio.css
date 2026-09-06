@@ -225,6 +225,11 @@
   color: var(--color-ink-soft);
   line-height: 1.6;
 }
+.lightbox-playstore {
+  margin-top: 1.4rem;
+  gap: 0.6rem;
+}
+.lightbox-playstore svg { width: 18px; height: 18px; }
 .lightbox-note {
   margin-top: 1rem;
   font-size: 0.8rem;

@@ -205,6 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
           img.src = content.hero.photo;
         });
       }
+      const linkedinLink = document.getElementById('footerLinkedinLink');
+      const githubLink = document.getElementById('footerGithubLink');
+      if (linkedinLink && content.contact && content.contact.linkedin) {
+        linkedinLink.href = content.contact.linkedin;
+      }
+      if (githubLink && content.contact && content.contact.github) {
+        githubLink.href = content.contact.github;
+      }
     };
     syncFooter();
     window.SSContent.onChange(syncFooter);
