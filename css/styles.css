@@ -342,7 +342,7 @@ p { margin: 0; }
   padding: 0 var(--gutter);
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
+  align-items: start;
   gap: clamp(2rem, 5vw, 4rem);
 }
 
@@ -470,7 +470,7 @@ p { margin: 0; }
 
 .hero-photo-frame {
   position: relative;
-  width: min(340px, 78vw);
+  width: min(440px, 78vw);
   aspect-ratio: 5 / 6;
 }
 
