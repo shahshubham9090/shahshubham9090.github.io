@@ -54,7 +54,7 @@
       lastName: 'Shah',
       eyebrow: 'Software Engineer — Flutter & React Native Developer',
       tagline: 'From Idea to App — Building Experiences That Make an Impact.',
-      photo: null,
+      photo: 'assets/homeprofilepic.jpg',
       photoPath: null, // GitHub repo path for the uploaded file, used to delete/replace it later
     },
     stats: [
@@ -64,7 +64,7 @@
       { key: 'failures', value: 0,  decimals: 0, suffix: '',  label: 'Critical Post-Launch Failures' },
     ],
     about: {
-      photo: null,
+      photo: 'assets/homeprofilepic.jpg',
       photoPath: null, // GitHub repo path for the uploaded file, used to delete/replace it later
       quickFacts: { location: 'Bhavnagar, Gujarat, India', focus: 'Flutter & React Native', experience: '2+ years' },
       storyParagraphs: [
