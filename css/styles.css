@@ -209,6 +209,7 @@ p { margin: 0; }
   color: var(--color-ink);
   border-color: var(--color-ink);
 }
+.btn-resume svg { width: 18px; height: 18px; }
 .btn-outline:hover {
   background: var(--color-ink);
   color: var(--color-bg);

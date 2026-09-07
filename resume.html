@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume — Shubham Shah</title>
+<meta name="description" content="Resume of Shubham Shah, Software Engineer specializing in Flutter and React Native mobile development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/content-store.js"></script>
+<script src="js/theme-store.js"></script>
+<link rel="stylesheet" href="css/resume.css">
+</head>
+<body class="resume-body">
+
+<!-- ================= TOOLBAR (hidden on print) ================= -->
+<header class="resume-toolbar">
+  <a href="index.html" class="resume-back">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to site
+  </a>
+  <button type="button" class="btn btn-primary" id="downloadResumeBtn">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Download as PDF
+  </button>
+</header>
+
+<!-- ================= RESUME PAPER ================= -->
+<main class="resume-wrap">
+  <article class="resume-paper" id="resumePaper">
+
+    <header class="r-header">
+      <div class="r-header-text">
+        <h1 id="rName">Shubham Shah</h1>
+        <p class="r-role" id="rRole">Software Engineer — Flutter &amp; React Native Developer</p>
+      </div>
+      <ul class="r-contact" id="rContact">
+        <li id="rEmail"></li>
+        <li id="rPhone"></li>
+        <li id="rLocation"></li>
+        <li id="rLinkedin"></li>
+        <li id="rGithub"></li>
+      </ul>
+    </header>
+
+    <section class="r-section">
+      <h2>Summary</h2>
+      <p id="rSummary"></p>
+    </section>
+
+    <section class="r-section">
+      <h2>Experience</h2>
+      <div id="rExperience"></div>
+    </section>
+
+    <section class="r-section">
+      <h2>Core Skills</h2>
+      <ul class="r-skills" id="rSkills"></ul>
+    </section>
+
+    <section class="r-section">
+      <h2>Key Achievements</h2>
+      <div id="rAchievements"></div>
+    </section>
+
+  </article>
+</main>
+
+<script src="js/resume-render.js"></script>
+</body>
+</html>
