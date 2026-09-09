@@ -310,6 +310,7 @@
         </div>
         <div class="form-field"><label>Description</label><textarea class="proj-desc" rows="2">${escapeHTML(p.description)}</textarea></div>
         <div class="form-field"><label>Play Store URL <span class="field-optional">(optional)</span></label><input type="url" class="proj-playstore" placeholder="https://play.google.com/store/apps/details?id=..." value="${escapeAttr(p.playStoreUrl || '')}"></div>
+        <div class="form-field"><label>GitHub URL <span class="field-optional">(optional)</span></label><input type="url" class="proj-github" placeholder="https://github.com/..." value="${escapeAttr(p.githubUrl || '')}"></div>
         <div class="admin-image-row">
           <div class="admin-image-preview proj-thumb-preview">${thumbPreview}</div>
           <div class="admin-image-controls">
@@ -368,7 +369,7 @@
   const addProjectBtn = $('#addProjectBtn');
   if (addProjectBtn) {
     addProjectBtn.addEventListener('click', () => {
-      const newProject = { id: window.SSContent.newId('proj'), title: 'New Project', category: 'mobile', description: '', playStoreUrl: null, thumbnail: null };
+      const newProject = { id: window.SSContent.newId('proj'), title: 'New Project', category: 'mobile', description: '', playStoreUrl: null, githubUrl: null, thumbnail: null };
       const list = $('#portfolioList');
       list.insertAdjacentHTML('beforeend', projectRowTemplate(newProject, list.children.length));
       wirePortfolioRowEvents();
@@ -403,6 +404,7 @@
           category: $('.proj-category', row).value,
           description: $('.proj-desc', row).value.trim(),
           playStoreUrl: $('.proj-playstore', row).value.trim() || null,
+          githubUrl: $('.proj-github', row).value.trim() || null,
           thumbnail,
           thumbnailPath,
         };

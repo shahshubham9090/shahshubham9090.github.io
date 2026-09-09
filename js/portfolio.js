@@ -179,6 +179,7 @@
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxBackdrop = document.getElementById('lightboxBackdrop');
   const lightboxPlayStore = document.getElementById('lightboxPlayStore');
+  const lightboxGithub = document.getElementById('lightboxGithub');
   let lastFocusedEl = null;
 
   function openLightbox(project, index) {
@@ -198,6 +199,15 @@
       } else {
         lightboxPlayStore.hidden = true;
         lightboxPlayStore.removeAttribute('href');
+      }
+    }
+    if (lightboxGithub) {
+      if (project.githubUrl) {
+        lightboxGithub.href = project.githubUrl;
+        lightboxGithub.hidden = false;
+      } else {
+        lightboxGithub.hidden = true;
+        lightboxGithub.removeAttribute('href');
       }
     }
 

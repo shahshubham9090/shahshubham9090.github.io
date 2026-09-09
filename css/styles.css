@@ -68,6 +68,11 @@
    RESET & BASE
    ========================================================= */
 *, *::before, *::after { box-sizing: border-box; }
+/* The [hidden] attribute is only enforced by a low-priority
+   user-agent rule, so any class that sets its own `display`
+   (e.g. .btn's inline-flex) silently overrides it. Force it here
+   so toggling the `hidden` property always actually hides things. */
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 
 body {
