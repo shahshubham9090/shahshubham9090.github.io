@@ -237,7 +237,7 @@
       { panel: 'achievements', title: 'Awards & Achievements', desc: `${c.achievements.length} milestone${c.achievements.length === 1 ? '' : 's'} listed.` },
       { panel: 'contact', title: 'Contact Information', desc: 'Email, WhatsApp, and intro message.' },
       { panel: 'images', title: 'Images & Media', desc: 'Every photo and thumbnail on your site.' },
-      { panel: 'social', title: 'Social Media Links', desc: 'Instagram and YouTube links.' },
+      { panel: 'social', title: 'Social Media Links', desc: 'LinkedIn, GitHub, Instagram, and YouTube links.' },
       { panel: 'themes', title: 'Color Themes', desc: 'Switch the whole site\u2019s color palette.' },
       { panel: 'settings', title: 'Website Settings', desc: 'Backups, reset, and footer text.' },
       { panel: 'account', title: 'Admin Account', desc: 'Change your username and password.' },

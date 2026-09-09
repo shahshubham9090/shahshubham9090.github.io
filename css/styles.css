@@ -1135,6 +1135,16 @@ p { margin: 0; }
   .work-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
 
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .footer-admin-link {
+    position: static;
+    transform: none;
+  }
+
   .main-nav.is-open {
     display: flex;
     flex-direction: column;

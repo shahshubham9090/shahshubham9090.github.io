@@ -61,7 +61,10 @@
   }
 
   function isAdminPage() {
-    return /(^|\/)admin\.html$/.test(window.location.pathname);
+    // Matches /admin.html (normal static hosting) as well as /admin or
+    // /admin/ (hosts that serve clean URLs, e.g. Vercel), so the Admin
+    // Panel still locks to its own light theme under either setup.
+    return /(^|\/)admin(\.html)?\/?$/.test(window.location.pathname);
   }
 
   function currentThemeKey() {
