@@ -656,6 +656,7 @@
     $('#contactEmailInput').value = c.contact.email;
     $('#contactWhatsappInput').value = c.contact.whatsapp;
     $('#contactIntroInput').value = c.contact.intro;
+    $('#contactFormEndpointInput').value = c.contact.formEndpoint || '';
   }
   const saveContactBtn = $('#saveContactBtn');
   if (saveContactBtn) {
@@ -664,6 +665,7 @@
         c.contact.email = $('#contactEmailInput').value.trim();
         c.contact.whatsapp = $('#contactWhatsappInput').value.trim();
         c.contact.intro = $('#contactIntroInput').value.trim();
+        c.contact.formEndpoint = $('#contactFormEndpointInput').value.trim() || null;
       });
       flashSaved('contactSaveMsg');
     });

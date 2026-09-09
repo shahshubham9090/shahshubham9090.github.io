@@ -108,6 +108,8 @@
     return isValid;
   }
 
+  const submitBtn = form.querySelector('.form-submit');
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const valid = validate();
@@ -120,11 +122,45 @@
       return;
     }
 
-    // No backend/email service is connected yet — be upfront about that
-    // rather than implying the message was actually sent.
+    const endpoint = (window.SSContent.get().contact || {}).formEndpoint;
+
+    if (!endpoint) {
+      // No form service configured yet (set one in Admin Panel → Contact
+      // Information) — be upfront about that rather than implying the
+      // message was actually sent.
+      status.classList.remove('is-error');
+      status.textContent = "Thanks — this form isn't connected to a live inbox yet. Please reach out directly via email or WhatsApp above in the meantime.";
+      status.classList.add('is-visible');
+      return;
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
     status.classList.remove('is-error');
-    status.textContent = "Thanks — this form isn't connected to a live inbox yet. Please reach out directly via email or WhatsApp above in the meantime.";
+    status.textContent = 'Sending...';
     status.classList.add('is-visible');
+
+    fetch(endpoint, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    })
+      .then((response) => {
+        if (response.ok) {
+          status.classList.remove('is-error');
+          status.textContent = "Thanks — your message has been sent! I'll get back to you soon.";
+          form.reset();
+        } else {
+          status.classList.add('is-error');
+          status.textContent = "Something went wrong sending your message. Please email me directly instead.";
+        }
+      })
+      .catch(() => {
+        status.classList.add('is-error');
+        status.textContent = "Couldn't send your message — check your connection, or email me directly instead.";
+      })
+      .finally(() => {
+        if (submitBtn) submitBtn.disabled = false;
+      });
   });
 
   // clear error state as the visitor corrects a field
