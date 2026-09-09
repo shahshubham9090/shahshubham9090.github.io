@@ -184,6 +184,13 @@
   margin-bottom: 0.6rem;
 }
 .journey-item:nth-child(even) .journey-role { color: var(--color-blue); }
+.journey-intro {
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--color-ink-soft);
+  max-width: 56ch;
+  margin-bottom: 0.7rem;
+}
 .journey-bullets {
   list-style: none;
   padding: 0;

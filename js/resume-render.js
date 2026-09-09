@@ -1,17 +1,15 @@
 /* =========================================================
    RESUME PAGE RENDER JS
    Builds the resume entirely from the shared content store, so
-   editing About/Experience/Achievements in the Admin Panel keeps
+   editing About/Experience/Portfolio in the Admin Panel keeps
    the resume in sync automatically — no PDF file to maintain.
    ========================================================= */
 
 (() => {
   if (!window.SSContent) return;
 
-  const CORE_SKILLS = [
-    'Flutter', 'React Native', 'Firebase', 'BLoC', 'Provider', 'GetX',
-    'REST APIs', 'WebSockets', 'Redux', 'Git & GitHub',
-  ];
+  // Projects to surface on the resume, and in this order (by portfolio id).
+  const RESUME_PROJECT_IDS = ['thebidnow', 'collect', 'amulya-mica'];
 
   function escapeHTML(str) {
     const div = document.createElement('div');
@@ -42,6 +40,7 @@
     const locationEl = document.getElementById('rLocation');
     const linkedinEl = document.getElementById('rLinkedin');
     const githubEl = document.getElementById('rGithub');
+    const availabilityEl = document.getElementById('rAvailability');
 
     if (emailEl) {
       emailEl.innerHTML = contact.email
@@ -61,17 +60,28 @@
     }
     if (linkedinEl) {
       linkedinEl.innerHTML = contact.linkedin
-        ? `${iconSpan('M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z')}<a href="${escapeHTML(contact.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`
+        ? `${iconSpan('M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z')}<a href="${escapeHTML(contact.linkedin)}" target="_blank" rel="noopener noreferrer">${escapeHTML(contact.linkedin.replace(/^https?:\/\//, ''))}</a>`
         : '';
     }
     if (githubEl) {
       githubEl.innerHTML = contact.github
-        ? `${iconSpan('M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2-.2 4.5-1 4.5-4.5a3.5 3.5 0 0 0-1-2.5c.1-.2.5-1.5-.1-3.3 0 0-1-.3-3.4 1.3a11.5 11.5 0 0 0-6 0C6.1 3.9 5.1 4.2 5.1 4.2c-.6 1.7-.2 3-.1 3.3A3.5 3.5 0 0 0 4 10c0 3.5 2.5 4.3 4.5 4.5-.3.3-.5.7-.5 1.4V19')}<a href="${escapeHTML(contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>`
+        ? `${iconSpan('M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2-.2 4.5-1 4.5-4.5a3.5 3.5 0 0 0-1-2.5c.1-.2.5-1.5-.1-3.3 0 0-1-.3-3.4 1.3a11.5 11.5 0 0 0-6 0C6.1 3.9 5.1 4.2 5.1 4.2c-.6 1.7-.2 3-.1 3.3A3.5 3.5 0 0 0 4 10c0 3.5 2.5 4.3 4.5 4.5-.3.3-.5.7-.5 1.4V19')}<a href="${escapeHTML(contact.github)}" target="_blank" rel="noopener noreferrer">${escapeHTML(contact.github.replace(/^https?:\/\//, ''))}</a>`
         : '';
     }
+    if (availabilityEl) availabilityEl.textContent = contact.availability || '';
 
     const summaryEl = document.getElementById('rSummary');
-    if (summaryEl) summaryEl.textContent = about.mission || '';
+    if (summaryEl) summaryEl.textContent = about.resumeSummary || about.mission || '';
+
+    const skillsTableEl = document.getElementById('rSkillsTable');
+    if (skillsTableEl && Array.isArray(about.technicalSkills)) {
+      skillsTableEl.innerHTML = about.technicalSkills.map((row) => `
+        <tr>
+          <th>${escapeHTML(row.category)}</th>
+          <td>${escapeHTML(row.items)}</td>
+        </tr>
+      `).join('');
+    }
 
     const expEl = document.getElementById('rExperience');
     if (expEl && Array.isArray(about.experience)) {
@@ -81,25 +91,24 @@
             <h3>${escapeHTML(job.role)} <span>— ${escapeHTML(job.company)}</span></h3>
             <span class="r-period">${escapeHTML(job.period)}</span>
           </div>
+          ${job.intro ? `<p class="r-item-intro">${escapeHTML(job.intro)}</p>` : ''}
           ${Array.isArray(job.bullets) ? `<ul>${job.bullets.map((b) => `<li>${escapeHTML(b)}</li>`).join('')}</ul>` : ''}
         </div>
       `).join('');
     }
 
-    const skillsEl = document.getElementById('rSkills');
-    if (skillsEl) {
-      skillsEl.innerHTML = CORE_SKILLS.map((s) => `<li>${escapeHTML(s)}</li>`).join('');
-    }
-
-    const achvEl = document.getElementById('rAchievements');
-    if (achvEl && Array.isArray(content.achievements)) {
-      achvEl.innerHTML = content.achievements.slice(0, 4).map((a) => `
+    const projectsEl = document.getElementById('rProjects');
+    if (projectsEl && Array.isArray(content.portfolio)) {
+      const byId = {};
+      content.portfolio.forEach((p) => { byId[p.id] = p; });
+      const selected = RESUME_PROJECT_IDS.map((id) => byId[id]).filter(Boolean);
+      const categoryLabels = window.SSContent.CATEGORY_LABELS || {};
+      projectsEl.innerHTML = selected.map((p) => `
         <div class="r-item">
           <div class="r-item-head">
-            <h3>${escapeHTML(a.title)}</h3>
-            <span class="r-period">${escapeHTML(a.year)}</span>
+            <h3>${escapeHTML(p.title)} <span>— ${escapeHTML(categoryLabels[p.category] || p.category)}</span></h3>
           </div>
-          <p>${escapeHTML(a.achievement)}</p>
+          <p>${escapeHTML(p.description)}</p>
         </div>
       `).join('');
     }

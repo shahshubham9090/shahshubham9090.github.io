@@ -60,6 +60,7 @@
             <span class="journey-period">${escapeHTML(job.period)}</span>
           </div>
           <p class="journey-role">${escapeHTML(job.role)}</p>
+          ${job.intro ? `<p class="journey-intro">${escapeHTML(job.intro)}</p>` : ''}
           ${Array.isArray(job.bullets) ? `<ul class="journey-bullets">${job.bullets.map((b) => `<li>${escapeHTML(b)}</li>`).join('')}</ul>` : ''}
         </div>
       </div>

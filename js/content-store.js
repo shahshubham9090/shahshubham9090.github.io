@@ -78,6 +78,17 @@
         "I graduated with a B.Tech in Information Technology (8.66 CGPA) while actively delivering freelance Flutter projects in parallel — and that same pace has carried into my career: always shipping, always learning, always looking for the next problem worth solving.",
       ],
       mission: 'To build production-ready mobile experiences that solve real problems, ship without critical failures, and make technology easier to use.',
+      resumeSummary: 'Software Engineer with 2+ years of experience building and shipping production mobile applications in Flutter and React Native. Delivered 5+ apps live on Play Store and App Store with zero critical post-launch failures, using BLoC/Provider/GetX for state management and REST/WebSocket APIs for real-time features. Cut post-release bugs 40% through disciplined unit/integration testing (80%+ coverage) and reduced delivery time 20% via reusable component architecture. Comfortable owning a feature from requirement through store release.',
+      technicalSkills: [
+        { category: 'Languages', items: 'Dart, JavaScript, TypeScript, HTML, CSS' },
+        { category: 'Mobile', items: 'Flutter SDK, React Native, Android, iOS' },
+        { category: 'State Mgmt', items: 'BLoC, Provider, GetX, Riverpod, Redux' },
+        { category: 'Backend/APIs', items: 'REST API, WebSocket, Firebase (Auth, Firestore, Storage, FCM), PHP, MySQL' },
+        { category: 'Testing', items: 'Unit, Integration, Widget Testing (flutter_test), Jest' },
+        { category: 'Architecture', items: 'Clean Architecture, Modular App Design, Code Review' },
+        { category: 'Release/DevOps', items: 'Play Console & App Store Connect, TestFlight, Signing/Provisioning, ASO, GitHub Actions (CI/CD), Git' },
+        { category: 'AI-Assisted Dev', items: 'GitHub Copilot, Claude Code, ChatGPT, Cursor AI (supporting debugging & code review)' },
+      ],
       experience: [
         {
           id: 'exp-mitti',
@@ -85,9 +96,9 @@
           role: 'Software Engineer',
           period: 'Jun 2026 – Present',
           bullets: [
-            'Building and shipping production features across mobile applications.',
-            'Using AI-assisted development tools (Claude Code, GitHub Copilot, Cursor AI) to accelerate implementation, debugging, and code review cycles.',
-            'Collaborating with cross-functional product and engineering teams in an Agile environment to plan, build, and ship production releases.',
+            "Build and ship production React Native features for Mitti Labs' Collect app.",
+            'Collaborate with cross-functional product and engineering teams in an Agile environment to plan, build, and release features.',
+            'Use AI-assisted tools (Claude Code, GitHub Copilot, Cursor AI) to support debugging and code-review cycles.',
           ],
         },
         {
@@ -96,8 +107,8 @@
           role: 'Software Engineer',
           period: 'Mar 2026 – Jun 2026',
           bullets: [
-            'Delivered independent client engagements end-to-end — requirement scoping, architecture, development, and production release — using React Native.',
-            'Applied AI-assisted development workflows to speed up debugging and feature delivery under tight timelines.',
+            'Delivered end-to-end React Native client engagement(s) — requirement scoping, architecture, development, and production release.',
+            'Applied AI-assisted workflows to speed up debugging and delivery under client timelines.',
           ],
         },
         {
@@ -105,9 +116,10 @@
           company: 'Milople Technologies',
           role: 'Software Engineer',
           period: 'Aug 2024 – Mar 2026',
+          intro: 'Owned full SDLC — requirements through architecture, development, testing, and Play Store / App Store release — across 5+ production Flutter apps.',
           bullets: [
-            'Owned full SDLC — requirements through architecture, development, testing, and Play Store / App Store release — across 5+ production Flutter apps.',
-            'Built scalable, testable app architectures (BLoC, Provider, GetX) with 80%+ test coverage, cutting post-release bugs by 40% — zero critical post-launch failures.',
+            'Architected and delivered 5+ Flutter apps end-to-end, reducing average delivery time 20% through reusable component design.',
+            'Built scalable, testable app architectures (BLoC, Provider, GetX) with 80%+ test coverage, cutting post-release bugs 40% — zero critical post-launch failures across releases.',
             'Optimized app performance (25% faster launch, sustained 60fps) and owned the release lifecycle end-to-end — signing, provisioning, ASO, and store submissions.',
           ],
         },
@@ -116,9 +128,10 @@
           company: 'Softwingz Infotech',
           role: 'Flutter Mobile App Developer',
           period: 'Jun 2024 – Aug 2024',
+          intro: 'Learning-focused engagement building Flutter fundamentals — UI implementation and Provider state management under mentorship, not independent client delivery.',
           bullets: [
-            'Developed and shipped Flutter features for 2+ client projects using Provider state management.',
-            'Integrated REST APIs and Firebase services (Auth, Firestore, FCM), enabling real-time data sync and push notifications for 500+ active users.',
+            'Practiced Firebase integration (Auth, Firestore, FCM) and REST API integration in a guided learning environment.',
+            'Used AI coding assistants to support learning; explored pub.dev packages and Agile workflows.',
           ],
         },
       ],
@@ -130,6 +143,7 @@
       youtube: 'https://www.youtube.com',
       linkedin: 'https://www.linkedin.com/in/shubhamshah2413/',
       github: 'https://github.com/shahshubham9090',
+      availability: 'Open to Relocation, Hybrid & WFH | Immediate Joiner',
       intro: "Have an idea, a problem to solve, or a mobile app to build? Let's turn it into something real.",
     },
     services: [
