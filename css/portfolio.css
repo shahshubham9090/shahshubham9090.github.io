@@ -104,12 +104,15 @@
   box-shadow: 0 22px 44px -18px color-mix(in srgb, var(--card-accent, var(--color-orange)) 55%, transparent);
 }
 
-.card-thumb-wrap svg {
+.card-thumb-wrap svg,
+.card-thumb-wrap img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
   transition: transform 0.6s var(--ease-cinematic);
 }
-.project-card:hover .card-thumb-wrap svg { transform: scale(1.06); }
+.project-card:hover .card-thumb-wrap svg,
+.project-card:hover .card-thumb-wrap img { transform: scale(1.06); }
 
 .card-glow {
   position: absolute;
@@ -185,7 +188,8 @@
 }
 
 .lightbox-image { aspect-ratio: 16 / 9; }
-.lightbox-image svg { width: 100%; height: 100%; }
+.lightbox-image svg,
+.lightbox-image img { width: 100%; height: 100%; object-fit: cover; }
 
 .lightbox-close {
   position: absolute;
