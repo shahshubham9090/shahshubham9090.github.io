@@ -1121,7 +1121,7 @@ p { margin: 0; }
   .nav-toggle { display: flex; }
 
   .hero-inner { grid-template-columns: 1fr; text-align: left; }
-  .hero-photo-wrap { justify-self: start; margin-top: 2.5rem; }
+  .hero-photo-wrap { justify-self: center; margin-top: 2.5rem; }
 
   .stats-inner { grid-template-columns: repeat(2, 1fr); row-gap: 1.25rem; }
 
