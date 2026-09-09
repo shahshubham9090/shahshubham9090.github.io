@@ -145,7 +145,7 @@
       github: 'https://github.com/shahshubham9090',
       availability: 'Open to Relocation, Hybrid & WFH | Immediate Joiner',
       intro: "Have an idea, a problem to solve, or a mobile app to build? Let's turn it into something real.",
-      formEndpoint: null, // Formspree (or similar) endpoint the Contact page form posts to; set via Admin Panel
+      formEndpoint: 'https://formspree.io/f/xjyvpzev', // Formspree endpoint the Contact page form posts to; editable via Admin Panel
     },
     services: [
       { id: 'svc-mobile',  icon: 'mobile',    title: 'Mobile App Development', price: "Let's Discuss", description: 'I build and ship production-ready cross-platform apps — architected for scale, tested to 80%+ coverage, and released to the Play Store and App Store with zero critical post-launch failures.' },
