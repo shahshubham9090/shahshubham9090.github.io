@@ -28,11 +28,6 @@
     if (waLink) waLink.href = 'https://wa.me/' + digitsOnly(contact.whatsapp);
     if (waText) waText.textContent = contact.whatsapp;
 
-    const igLink = document.getElementById('socialInstagramLink');
-    const ytLink = document.getElementById('socialYoutubeLink');
-    if (igLink) igLink.href = contact.instagram;
-    if (ytLink) ytLink.href = contact.youtube;
-
     // Project Type options should mirror the master Services list
     const projectTypeSelect = document.getElementById('fieldProjectType');
     if (projectTypeSelect && content.services) {

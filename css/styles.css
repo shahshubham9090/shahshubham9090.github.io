@@ -897,16 +897,6 @@ p { margin: 0; }
   font-size: 0.8rem;
   color: color-mix(in srgb, var(--color-on-dark) 50%, transparent);
 }
-.footer-admin-link {
-  position: absolute;
-  right: var(--gutter);
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.75rem;
-  color: color-mix(in srgb, var(--color-on-dark) 32%, transparent);
-  transition: color 0.3s var(--ease-cinematic);
-}
-.footer-admin-link:hover { color: var(--color-orange); }
 
 /* =========================================================
    MICRO-INTERACTIONS
@@ -1138,15 +1128,6 @@ p { margin: 0; }
   .work-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
 
-  .footer-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .footer-admin-link {
-    position: static;
-    transform: none;
-  }
 
   .main-nav.is-open {
     display: flex;

@@ -106,39 +106,6 @@
   overflow-wrap: anywhere;
 }
 
-.contact-social {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  padding-top: 1.6rem;
-  border-top: 1px solid var(--color-line);
-}
-.contact-social-label {
-  font-size: 0.85rem;
-  color: var(--color-muted);
-}
-.contact-social-icons {
-  display: flex;
-  gap: 0.7rem;
-}
-.contact-social-icons a {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-s);
-  color: var(--color-ink-soft);
-  transition: border-color 0.3s var(--ease-cinematic), color 0.3s var(--ease-cinematic), transform 0.3s var(--ease-cinematic);
-}
-.contact-social-icons a svg { width: 17px; height: 17px; fill: currentColor; }
-.contact-social-icons a:hover {
-  color: var(--color-orange);
-  border-color: color-mix(in srgb, var(--color-orange) 40%, var(--color-line));
-  transform: translateY(-2px);
-}
-
 /* ---------- Right column: form ---------- */
 .contact-form-col {
   background: var(--color-surface);

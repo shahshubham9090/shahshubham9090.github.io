@@ -139,8 +139,6 @@
     contact: {
       email: 'shubhamshah9097@gmail.com',
       whatsapp: '+91-8200495373',
-      instagram: 'https://www.instagram.com',
-      youtube: 'https://www.youtube.com',
       linkedin: 'https://www.linkedin.com/in/shubhamshah2413/',
       github: 'https://github.com/shahshubham9090',
       availability: 'Open to Relocation, Hybrid & WFH | Immediate Joiner',

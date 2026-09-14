@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin.html
+Allow: /
+
+Sitemap: https://shahshubham9090.github.io/sitemap.xml
