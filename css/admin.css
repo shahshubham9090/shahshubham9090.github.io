@@ -177,8 +177,8 @@
 }
 .admin-nav-item:hover { background: var(--color-bg-alt); color: var(--color-ink); }
 .admin-nav-item.is-active {
-  background: var(--color-ink);
-  color: var(--color-on-dark);
+  background: var(--color-orange);
+  color: #fff;
 }
 
 .admin-main {
@@ -264,6 +264,15 @@
   transition: border-color 0.3s var(--ease-cinematic), box-shadow 0.3s var(--ease-cinematic);
 }
 .admin-body textarea { resize: vertical; font-family: var(--font-body); }
+.admin-body input[type="color"] {
+  width: 100%;
+  height: 44px;
+  padding: 4px;
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-line);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+}
 .admin-body input:focus, .admin-body select:focus, .admin-body textarea:focus {
   outline: none;
   border-color: var(--color-orange);

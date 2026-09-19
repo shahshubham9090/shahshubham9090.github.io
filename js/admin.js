@@ -215,12 +215,11 @@
     renderHomePanel();
     renderPortfolioPanel();
     renderAboutPanel();
-    renderServicesPanel();
-    renderAchievementsPanel();
+    renderExpertisePanel();
+    renderHighlightsPanel();
     renderContactPanel();
     renderImagesPanel();
     renderSocialPanel();
-    renderThemesPanel();
     renderSettingsPanel();
   }
 
@@ -233,12 +232,11 @@
       { panel: 'home', title: 'Home Page', desc: 'Hero text, photo, and key numbers.' },
       { panel: 'portfolio', title: 'Portfolio Page', desc: `${c.portfolio.length} project${c.portfolio.length === 1 ? '' : 's'} listed.` },
       { panel: 'about', title: 'About Page', desc: 'Your story and mission statement.' },
-      { panel: 'services', title: 'Services', desc: `${c.services.length} service${c.services.length === 1 ? '' : 's'}, with pricing.` },
-      { panel: 'achievements', title: 'Awards & Achievements', desc: `${c.achievements.length} milestone${c.achievements.length === 1 ? '' : 's'} listed.` },
+      { panel: 'expertise', title: 'Expertise', desc: `${c.expertise.length} area${c.expertise.length === 1 ? '' : 's'} listed.` },
+      { panel: 'highlights', title: 'Highlights', desc: `${c.highlights.length} highlight${c.highlights.length === 1 ? '' : 's'} listed.` },
       { panel: 'contact', title: 'Contact Information', desc: 'Email, WhatsApp, and intro message.' },
       { panel: 'images', title: 'Images & Media', desc: 'Every photo and thumbnail on your site.' },
       { panel: 'social', title: 'Social Media Links', desc: 'LinkedIn and GitHub links.' },
-      { panel: 'themes', title: 'Color Themes', desc: 'Switch the whole site\u2019s color palette.' },
       { panel: 'settings', title: 'Website Settings', desc: 'Backups, reset, and footer text.' },
       { panel: 'account', title: 'Admin Account', desc: 'Change your username and password.' },
     ];
@@ -258,6 +256,8 @@
     $('#homeLastName').value = c.hero.lastName;
     $('#homeEyebrow').value = c.hero.eyebrow;
     $('#homeTagline').value = c.hero.tagline;
+    $('#homeAvailableToggle').value = c.hero.availableForWork ? 'true' : 'false';
+    $('#homeAvailabilityLabel').value = c.hero.availabilityLabel || '';
 
     const statsEditor = $('#statsEditor');
     statsEditor.innerHTML = c.stats.map((s, i) => `
@@ -278,6 +278,8 @@
         c.hero.lastName = $('#homeLastName').value.trim();
         c.hero.eyebrow = $('#homeEyebrow').value.trim();
         c.hero.tagline = $('#homeTagline').value.trim();
+        c.hero.availableForWork = $('#homeAvailableToggle').value === 'true';
+        c.hero.availabilityLabel = $('#homeAvailabilityLabel').value.trim() || 'Open to Work';
         statRows.forEach((row, i) => {
           if (!c.stats[i]) return;
           const val = parseFloat($('.stat-value-input', row).value);
@@ -308,7 +310,12 @@
             </select>
           </div>
         </div>
-        <div class="form-field"><label>Description</label><textarea class="proj-desc" rows="2">${escapeHTML(p.description)}</textarea></div>
+        <div class="form-field"><label>Description (one-line hook)</label><textarea class="proj-desc" rows="2">${escapeHTML(p.description)}</textarea></div>
+        <div class="admin-list-row-top">
+          <div class="form-field"><label>Tech Stack (comma-separated)</label><input type="text" class="proj-techstack" value="${escapeAttr((p.techStack || []).join(', '))}" placeholder="Flutter, Firebase"></div>
+          <div class="form-field"><label>Accent Color</label><input type="color" class="proj-accent" value="${escapeAttr(p.accent || '#FF5C33')}"></div>
+        </div>
+        <div class="form-field"><label>Behind the Build <span class="field-optional">(optional, longer case-study paragraph)</span></label><textarea class="proj-casestudy" rows="2">${escapeHTML(p.caseStudy || '')}</textarea></div>
         <div class="form-field"><label>Play Store URL <span class="field-optional">(optional)</span></label><input type="url" class="proj-playstore" placeholder="https://play.google.com/store/apps/details?id=..." value="${escapeAttr(p.playStoreUrl || '')}"></div>
         <div class="form-field"><label>GitHub URL <span class="field-optional">(optional)</span></label><input type="url" class="proj-github" placeholder="https://github.com/..." value="${escapeAttr(p.githubUrl || '')}"></div>
         <div class="admin-image-row">
@@ -369,7 +376,7 @@
   const addProjectBtn = $('#addProjectBtn');
   if (addProjectBtn) {
     addProjectBtn.addEventListener('click', () => {
-      const newProject = { id: window.SSContent.newId('proj'), title: 'New Project', category: 'mobile', description: '', playStoreUrl: null, githubUrl: null, thumbnail: null };
+      const newProject = { id: window.SSContent.newId('proj'), title: 'New Project', category: 'mobile', description: '', techStack: [], caseStudy: '', accent: '#FF5C33', playStoreUrl: null, githubUrl: null, thumbnail: null };
       const list = $('#portfolioList');
       list.insertAdjacentHTML('beforeend', projectRowTemplate(newProject, list.children.length));
       wirePortfolioRowEvents();
@@ -403,6 +410,9 @@
           title: $('.proj-title', row).value.trim() || 'Untitled Project',
           category: $('.proj-category', row).value,
           description: $('.proj-desc', row).value.trim(),
+          techStack: $('.proj-techstack', row).value.split(',').map((s) => s.trim()).filter(Boolean),
+          caseStudy: $('.proj-casestudy', row).value.trim(),
+          accent: $('.proj-accent', row).value || '#FF5C33',
           playStoreUrl: $('.proj-playstore', row).value.trim() || null,
           githubUrl: $('.proj-github', row).value.trim() || null,
           thumbnail,
@@ -429,6 +439,7 @@
         </div>
         <div class="form-field"><label>Role</label><input type="text" class="exp-role" value="${escapeAttr(job.role)}"></div>
         <div class="form-field"><label>Bullet Points (one per line)</label><textarea class="exp-bullets" rows="3">${escapeHTML((job.bullets || []).join('\n'))}</textarea></div>
+        <div class="form-field"><label>Tech Tags (comma-separated)</label><input type="text" class="exp-tags" value="${escapeAttr((job.tags || []).join(', '))}" placeholder="React Native, Firebase"></div>
       </div>
     `;
   }
@@ -447,7 +458,7 @@
   const addExperienceBtn = $('#addExperienceBtn');
   if (addExperienceBtn) {
     addExperienceBtn.addEventListener('click', () => {
-      const newJob = { id: window.SSContent.newId('exp'), company: 'New Company', role: 'Role Title', period: '', bullets: [] };
+      const newJob = { id: window.SSContent.newId('exp'), company: 'New Company', role: 'Role Title', period: '', bullets: [], tags: [] };
       $('#experienceList').insertAdjacentHTML('beforeend', experienceRowTemplate(newJob));
       const row = $('#experienceList').lastElementChild;
       $('[data-remove-exp]', row).addEventListener('click', () => row.remove());
@@ -460,7 +471,7 @@
     $('#factLocationInput').value = about.quickFacts.location;
     $('#factFocusInput').value = about.quickFacts.focus;
     $('#factExperienceInput').value = about.quickFacts.experience;
-    $('#storyTextarea').value = about.storyParagraphs.join('\n\n');
+    $('#storyTextarea').value = about.bio.join('\n\n');
     $('#missionTextarea').value = about.mission;
 
     const preview = $('#aboutPhotoPreview');
@@ -511,12 +522,13 @@
         role: $('.exp-role', row).value.trim(),
         period: $('.exp-period', row).value.trim(),
         bullets: $('.exp-bullets', row).value.split('\n').map((s) => s.trim()).filter(Boolean),
+        tags: $('.exp-tags', row).value.split(',').map((s) => s.trim()).filter(Boolean),
       }));
       window.SSContent.update((c) => {
         c.about.quickFacts.location = $('#factLocationInput').value.trim();
         c.about.quickFacts.focus = $('#factFocusInput').value.trim();
         c.about.quickFacts.experience = $('#factExperienceInput').value.trim();
-        c.about.storyParagraphs = $('#storyTextarea').value
+        c.about.bio = $('#storyTextarea').value
           .split(/\n\s*\n/)
           .map((p) => p.trim())
           .filter(Boolean);
@@ -528,124 +540,120 @@
     });
   }
 
-  /* ---------- SERVICES PANEL ---------- */
+  /* ---------- EXPERTISE PANEL ---------- */
   const ICON_OPTIONS = ['mobile', 'layers', 'interface', 'link', 'star', 'rocket', 'flag', 'server', 'branch', 'target'];
 
-  function serviceRowTemplate(svc) {
+  function expertiseRowTemplate(item) {
     return `
-      <div class="admin-list-row" data-id="${svc.id}">
-        <button type="button" class="admin-row-remove" data-remove-service>&times;</button>
+      <div class="admin-list-row" data-id="${item.id}">
+        <button type="button" class="admin-row-remove" data-remove-expertise>&times;</button>
         <div class="admin-list-row-top">
           <div class="form-field"><label>Icon</label>
-            <select class="svc-icon">
-              ${ICON_OPTIONS.map((k) => `<option value="${k}" ${svc.icon === k ? 'selected' : ''}>${k}</option>`).join('')}
+            <select class="exa-icon">
+              ${ICON_OPTIONS.map((k) => `<option value="${k}" ${item.icon === k ? 'selected' : ''}>${k}</option>`).join('')}
             </select>
           </div>
-          <div class="form-field"><label>Price</label><input type="text" class="svc-price" value="${escapeAttr(svc.price)}" placeholder="Let's Discuss"></div>
+          <div class="form-field"><label>Title</label><input type="text" class="exa-title" value="${escapeAttr(item.title)}"></div>
         </div>
-        <div class="form-field"><label>Service Title</label><input type="text" class="svc-title" value="${escapeAttr(svc.title)}"></div>
-        <div class="form-field"><label>Description</label><textarea class="svc-desc" rows="2">${escapeHTML(svc.description)}</textarea></div>
+        <div class="form-field"><label>Description</label><textarea class="exa-desc" rows="2">${escapeHTML(item.description)}</textarea></div>
+        <div class="form-field"><label>Tech Tags (comma-separated)</label><input type="text" class="exa-tags" value="${escapeAttr((item.tags || []).join(', '))}"></div>
+        <div class="form-field"><label>In Practice (real-project callout)</label><textarea class="exa-practice" rows="2">${escapeHTML(item.inPractice || '')}</textarea></div>
       </div>
     `;
   }
 
-  function renderServicesPanel() {
+  function renderExpertisePanel() {
     const c = window.SSContent.get();
-    const list = $('#servicesList');
-    list.innerHTML = c.services.map(serviceRowTemplate).join('');
-    $all('#servicesList .admin-list-row').forEach((row) => {
-      $('[data-remove-service]', row).addEventListener('click', () => row.remove());
+    const list = $('#expertiseList');
+    list.innerHTML = c.expertise.map(expertiseRowTemplate).join('');
+    $all('#expertiseList .admin-list-row').forEach((row) => {
+      $('[data-remove-expertise]', row).addEventListener('click', () => row.remove());
     });
   }
 
-  const addServiceBtn = $('#addServiceBtn');
-  if (addServiceBtn) {
-    addServiceBtn.addEventListener('click', () => {
-      const newSvc = { id: window.SSContent.newId('svc'), icon: 'star', title: 'New Service', price: "Let's Discuss", description: '' };
-      $('#servicesList').insertAdjacentHTML('beforeend', serviceRowTemplate(newSvc));
-      const row = $('#servicesList').lastElementChild;
-      $('[data-remove-service]', row).addEventListener('click', () => row.remove());
+  const addExpertiseBtn = $('#addExpertiseBtn');
+  if (addExpertiseBtn) {
+    addExpertiseBtn.addEventListener('click', () => {
+      const newItem = { id: window.SSContent.newId('exa'), icon: 'star', title: 'New Area', description: '', tags: [], inPractice: '' };
+      $('#expertiseList').insertAdjacentHTML('beforeend', expertiseRowTemplate(newItem));
+      const row = $('#expertiseList').lastElementChild;
+      $('[data-remove-expertise]', row).addEventListener('click', () => row.remove());
     });
   }
 
-  const saveServicesBtn = $('#saveServicesBtn');
-  if (saveServicesBtn) {
-    saveServicesBtn.addEventListener('click', () => {
-      const rows = $all('#servicesList .admin-list-row');
-      const newServices = rows.map((row) => ({
+  const saveExpertiseBtn = $('#saveExpertiseBtn');
+  if (saveExpertiseBtn) {
+    saveExpertiseBtn.addEventListener('click', () => {
+      const rows = $all('#expertiseList .admin-list-row');
+      const newExpertise = rows.map((row) => ({
         id: row.dataset.id,
-        icon: $('.svc-icon', row).value,
-        title: $('.svc-title', row).value.trim() || 'Untitled Service',
-        price: $('.svc-price', row).value.trim() || "Let's Discuss",
-        description: $('.svc-desc', row).value.trim(),
+        icon: $('.exa-icon', row).value,
+        title: $('.exa-title', row).value.trim() || 'Untitled Area',
+        description: $('.exa-desc', row).value.trim(),
+        tags: $('.exa-tags', row).value.split(',').map((s) => s.trim()).filter(Boolean),
+        inPractice: $('.exa-practice', row).value.trim(),
       }));
-      window.SSContent.update((c) => { c.services = newServices; });
-      flashSaved('servicesSaveMsg');
-      renderServicesPanel();
+      window.SSContent.update((c) => { c.expertise = newExpertise; });
+      flashSaved('expertiseSaveMsg');
+      renderExpertisePanel();
       renderDashboard();
     });
   }
 
-  /* ---------- ACHIEVEMENTS PANEL ---------- */
-  const ACH_ICON_OPTIONS = ['flag', 'server', 'branch', 'rocket', 'target', 'star', 'mobile', 'layers'];
+  /* ---------- HIGHLIGHTS PANEL ---------- */
+  const HL_ICON_OPTIONS = ['flag', 'server', 'branch', 'rocket', 'target', 'star', 'mobile', 'layers'];
 
-  function achievementRowTemplate(a) {
+  function highlightRowTemplate(h) {
     return `
-      <div class="admin-list-row" data-id="${a.id}">
-        <button type="button" class="admin-row-remove" data-remove-ach>&times;</button>
-        <div class="admin-list-row-top">
-          <div class="form-field"><label>Stage</label><input type="text" class="ach-stage" value="${escapeAttr(a.stage)}"></div>
-          <div class="form-field"><label>Year</label><input type="text" class="ach-year" value="${escapeAttr(a.year)}"></div>
-        </div>
+      <div class="admin-list-row" data-id="${h.id}">
+        <button type="button" class="admin-row-remove" data-remove-highlight>&times;</button>
         <div class="admin-list-row-top">
           <div class="form-field"><label>Icon</label>
-            <select class="ach-icon">
-              ${ACH_ICON_OPTIONS.map((k) => `<option value="${k}" ${a.icon === k ? 'selected' : ''}>${k}</option>`).join('')}
+            <select class="hl-icon">
+              ${HL_ICON_OPTIONS.map((k) => `<option value="${k}" ${h.icon === k ? 'selected' : ''}>${k}</option>`).join('')}
             </select>
           </div>
-          <div class="form-field"><label>Title</label><input type="text" class="ach-title" value="${escapeAttr(a.title)}"></div>
+          <div class="form-field"><label>Stat (short, e.g. "80%+")</label><input type="text" class="hl-stat" value="${escapeAttr(h.stat)}"></div>
         </div>
-        <div class="form-field"><label>Achievement</label><textarea class="ach-desc" rows="2">${escapeHTML(a.achievement)}</textarea></div>
-        <div class="form-field"><label>Why It Matters</label><textarea class="ach-why" rows="2">${escapeHTML(a.whyItMatters)}</textarea></div>
+        <div class="form-field"><label>Title</label><input type="text" class="hl-title" value="${escapeAttr(h.title)}"></div>
+        <div class="form-field"><label>Description</label><textarea class="hl-desc" rows="2">${escapeHTML(h.description)}</textarea></div>
       </div>
     `;
   }
 
-  function renderAchievementsPanel() {
+  function renderHighlightsPanel() {
     const c = window.SSContent.get();
-    const list = $('#achievementsList');
-    list.innerHTML = c.achievements.map(achievementRowTemplate).join('');
-    $all('#achievementsList .admin-list-row').forEach((row) => {
-      $('[data-remove-ach]', row).addEventListener('click', () => row.remove());
+    const list = $('#highlightsList');
+    list.innerHTML = c.highlights.map(highlightRowTemplate).join('');
+    $all('#highlightsList .admin-list-row').forEach((row) => {
+      $('[data-remove-highlight]', row).addEventListener('click', () => row.remove());
     });
   }
 
-  const addAchievementBtn = $('#addAchievementBtn');
-  if (addAchievementBtn) {
-    addAchievementBtn.addEventListener('click', () => {
-      const newAch = { id: window.SSContent.newId('ach'), icon: 'star', stage: 'New Stage', year: String(new Date().getFullYear()), title: 'New Achievement', achievement: '', whyItMatters: '' };
-      $('#achievementsList').insertAdjacentHTML('beforeend', achievementRowTemplate(newAch));
-      const row = $('#achievementsList').lastElementChild;
-      $('[data-remove-ach]', row).addEventListener('click', () => row.remove());
+  const addHighlightBtn = $('#addHighlightBtn');
+  if (addHighlightBtn) {
+    addHighlightBtn.addEventListener('click', () => {
+      const newHl = { id: window.SSContent.newId('hl'), icon: 'star', stat: '', title: 'New Highlight', description: '' };
+      $('#highlightsList').insertAdjacentHTML('beforeend', highlightRowTemplate(newHl));
+      const row = $('#highlightsList').lastElementChild;
+      $('[data-remove-highlight]', row).addEventListener('click', () => row.remove());
     });
   }
 
-  const saveAchievementsBtn = $('#saveAchievementsBtn');
-  if (saveAchievementsBtn) {
-    saveAchievementsBtn.addEventListener('click', () => {
-      const rows = $all('#achievementsList .admin-list-row');
-      const newAchievements = rows.map((row) => ({
+  const saveHighlightsBtn = $('#saveHighlightsBtn');
+  if (saveHighlightsBtn) {
+    saveHighlightsBtn.addEventListener('click', () => {
+      const rows = $all('#highlightsList .admin-list-row');
+      const newHighlights = rows.map((row) => ({
         id: row.dataset.id,
-        icon: $('.ach-icon', row).value,
-        stage: $('.ach-stage', row).value.trim(),
-        year: $('.ach-year', row).value.trim(),
-        title: $('.ach-title', row).value.trim() || 'Untitled Milestone',
-        achievement: $('.ach-desc', row).value.trim(),
-        whyItMatters: $('.ach-why', row).value.trim(),
+        icon: $('.hl-icon', row).value,
+        stat: $('.hl-stat', row).value.trim(),
+        title: $('.hl-title', row).value.trim() || 'Untitled Highlight',
+        description: $('.hl-desc', row).value.trim(),
       }));
-      window.SSContent.update((c) => { c.achievements = newAchievements; });
-      flashSaved('achievementsSaveMsg');
-      renderAchievementsPanel();
+      window.SSContent.update((c) => { c.highlights = newHighlights; });
+      flashSaved('highlightsSaveMsg');
+      renderHighlightsPanel();
       renderDashboard();
     });
   }
@@ -804,36 +812,6 @@
       deleteImageRemote(oldPath);
       renderImagesPanel();
       renderAboutPanel();
-    });
-  }
-
-  /* ---------- THEMES PANEL ---------- */
-  function renderThemesPanel() {
-    const c = window.SSContent.get();
-    const grid = $('#themeGrid');
-    const themes = window.SSTheme.THEMES;
-    grid.innerHTML = Object.keys(themes).map((key) => {
-      const t = themes[key];
-      const isActive = c.site.theme === key;
-      return `
-        <button type="button" class="admin-theme-card ${isActive ? 'is-active' : ''}" data-theme="${key}">
-          <div class="admin-theme-swatches">
-            <span class="admin-theme-swatch" style="background:${t.bg}"></span>
-            <span class="admin-theme-swatch" style="background:${t.accentA}"></span>
-            <span class="admin-theme-swatch" style="background:${t.accentB}"></span>
-            <span class="admin-theme-swatch" style="background:${t.ink}"></span>
-          </div>
-          <h4>${t.name}</h4>
-          <span>${isActive ? 'Currently active' : 'Click to apply'}</span>
-        </button>
-      `;
-    }).join('');
-
-    $all('.admin-theme-card', grid).forEach((card) => {
-      card.addEventListener('click', () => {
-        window.SSContent.update((c2) => { c2.site.theme = card.dataset.theme; });
-        renderThemesPanel();
-      });
     });
   }
 

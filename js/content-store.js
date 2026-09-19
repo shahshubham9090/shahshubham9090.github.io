@@ -8,7 +8,7 @@
    ========================================================= */
 
 (() => {
-  const CONTENT_KEY = 'ss_portfolio_content_v1';
+  const CONTENT_KEY = 'ss_portfolio_content_v2';
 
   const ICONS = {
     mobile:    '<svg viewBox="0 0 40 40" fill="none"><rect x="11" y="4" width="18" height="32" rx="3" stroke="currentColor" stroke-width="1.6"/><line x1="11" y1="30" x2="29" y2="30" stroke="currentColor" stroke-width="1.6"/></svg>',
@@ -24,16 +24,10 @@
   };
 
   const CATEGORY_LABELS = {
-    mobile: 'Mobile App Development',
+    mobile: 'Mobile App',
     design: 'UI/UX & App Design',
-    api: 'API Integration & Development',
+    api: 'Real-Time / API',
   };
-
-  const ACCENT_ROTATION = ['var(--color-orange)', 'var(--color-blue)', 'var(--color-muted)'];
-
-  function accentForIndex(i) {
-    return ACCENT_ROTATION[i % ACCENT_ROTATION.length];
-  }
 
   function tileSVG(accent) {
     return `<svg viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
@@ -46,7 +40,6 @@
 
   const DEFAULTS = {
     site: {
-      theme: 'midnight',
       footerNote: '© 2026 Shubham Shah. All rights reserved.',
     },
     hero: {
@@ -54,6 +47,9 @@
       lastName: 'Shah',
       eyebrow: 'Software Engineer — Flutter & React Native',
       tagline: 'From Idea to App — Building Experiences That Make an Impact.',
+      availableForWork: true,
+      availabilityLabel: 'Open to Work',
+      timezone: 'Asia/Kolkata',
       photo: 'assets/homeprofilepic.jpg',
       photoPath: null, // GitHub repo path for the uploaded file, used to delete/replace it later
     },
@@ -63,19 +59,19 @@
       { key: 'coverage', value: 80, decimals: 0, suffix: '%', label: 'Test Coverage' },
       { key: 'failures', value: 0,  decimals: 0, suffix: '',  label: 'Critical Post-Launch Failures' },
     ],
+    highlights: [
+      { id: 'hl-ship',   icon: 'rocket', stat: '5+ / 0',      title: 'Shipped Live, Zero Critical Failures', description: 'Five-plus production apps live on the Play Store and App Store — every release with zero critical post-launch failures.' },
+      { id: 'hl-testing', icon: 'target', stat: '80%+ → −40%', title: 'Testing Discipline That Pays Off', description: '80%+ test coverage on critical modules cut post-release bugs by 40%, backed by disciplined unit, integration, and widget testing.' },
+      { id: 'hl-realtime', icon: 'branch', stat: 'Sub-200ms', title: 'Real-Time at Scale', description: "Built TheBidNow's WebSocket bidding engine — concurrent live auctions across 4 sports, sub-200ms response time." },
+      { id: 'hl-dashboards', icon: 'server', stat: '1,000+', title: 'Production Dashboards & Field Impact', description: "Ship React Native features and React JS admin dashboards at Mitti Labs' Collect, connecting 1,000+ registered farmers to ground ops." },
+    ],
     about: {
       photo: 'assets/homeprofilepic.jpg',
       photoPath: null, // GitHub repo path for the uploaded file, used to delete/replace it later
       quickFacts: { location: 'Bhavnagar, Gujarat, India', focus: 'Flutter & React Native', experience: '2+ years' },
-      storyParagraphs: [
-        "My journey into mobile app development began with a simple curiosity — how does an idea on paper turn into something people can hold in their hand and actually rely on.",
-        "I started as a Flutter Developer Intern at Softwingz Infotech, practicing UI implementation and Provider state management under mentorship, along with Firebase (Auth, Firestore, FCM) and REST API integration in a guided learning environment.",
-        "At Milople Technologies, I owned the full software development lifecycle — requirements, architecture, development, testing, and release — across 5+ production Flutter apps, using BLoC, Provider, and GetX to keep each one scalable and testable.",
-        "Somewhere along the way, testing stopped being optional. Pushing critical modules to 80%+ test coverage cut post-release bugs by 40% and helped me ship every one of those apps with zero critical post-launch failures.",
-        "I took on independent freelance Flutter client work end-to-end — from performance enhancements to Play Store and App Store listing management — before expanding into React Native at Mitti Labs, carrying the same architecture discipline across both frameworks.",
-        "Along the way, I built TheBidNow's real-time WebSocket bidding engine, handling concurrent live auctions across 4 sports with sub-200ms response time — the kind of problem that reminds me why I enjoy this work.",
-        "I've also leaned into AI-assisted development — GitHub Copilot, Claude Code, Cursor AI — not to replace engineering judgment, but to cut debugging time by 30% and speed up delivery by 20%, freeing up time for the parts that actually need a human.",
-        "I graduated with a B.Tech in Information Technology (8.66 CGPA) while actively delivering freelance Flutter projects in parallel — and that same pace has carried into my career: always shipping, always learning, always looking for the next problem worth solving.",
+      bio: [
+        "I build production mobile and web experiences — Flutter and React Native apps, React JS dashboards — and I care as much about a feature shipping without breaking as I do about it looking right.",
+        "2+ years, 5+ apps live on the Play Store and App Store, zero critical post-launch failures. I graduated with a B.Tech in Information Technology (8.66 CGPA) and haven't stopped shipping since.",
       ],
       mission: 'To build production-ready mobile experiences that solve real problems, ship without critical failures, and make technology easier to use.',
       resumeSummary: 'Software Engineer with 2+ years of experience building and shipping production mobile applications in Flutter and React Native, plus internal dashboards in React JS. Delivered 5+ apps live on Play Store and App Store with zero critical post-launch failures, using BLoC/Provider/GetX for state management and REST/WebSocket APIs for real-time features. Testing discipline (80%+ coverage) cut post-release bugs 40%, while reusable component architecture reduced delivery time 20%. Comfortable owning a feature from requirement through store release.',
@@ -98,9 +94,10 @@
           period: 'Jun 2026 – Present',
           bullets: [
             'Build, test, and ship core mobile features using React Native, focused on usability and ease of use for end users.',
-            "Build and maintain internal Mitti Labs admin dashboards in React JS, launching features that support ground ops teams and members.",
+            'Build and maintain internal Mitti Labs admin dashboards in React JS, launching features that support ground ops teams and members.',
             'Collaborate with cross-functional product and engineering teams in an Agile environment to plan, build, and release features.',
           ],
+          tags: ['React Native', 'React JS', 'Agile'],
         },
         {
           id: 'exp-freelance',
@@ -112,6 +109,7 @@
             "Directly managed and completed Play Store and App Store listing processes for the client's app.",
             'Applied AI-assisted workflows to speed up debugging and delivery under client timelines.',
           ],
+          tags: ['Flutter', 'PHP', 'App Store Release'],
         },
         {
           id: 'exp-milople',
@@ -124,6 +122,7 @@
             'Built scalable, testable app architectures (BLoC, Provider, GetX) with 80%+ test coverage, cutting post-release bugs 40% — zero critical post-launch failures across releases.',
             'Optimized app performance (25% faster launch, sustained 60fps) and owned the release lifecycle end-to-end — signing, provisioning, ASO, and store submissions.',
           ],
+          tags: ['Flutter', 'BLoC', 'Provider', 'GetX'],
         },
         {
           id: 'exp-softwingz',
@@ -135,6 +134,7 @@
             'Practiced Firebase integration (Auth, Firestore, FCM) and REST API integration in a guided learning environment.',
             'Used AI coding assistants to support learning; explored pub.dev packages and Agile workflows.',
           ],
+          tags: ['Flutter', 'Firebase', 'Provider'],
         },
       ],
     },
@@ -144,31 +144,51 @@
       linkedin: 'https://www.linkedin.com/in/shubhamshah2413/',
       github: 'https://github.com/shahshubham9090',
       availability: 'Open to Relocation, Hybrid & WFH | Immediate Joiner',
-      intro: "Have an idea, a problem to solve, or a mobile app to build? Let's turn it into something real.",
-      formEndpoint: 'https://formspree.io/f/xjyvpzev', // Formspree endpoint the Contact page form posts to; editable via Admin Panel
+      intro: "I'm actively interviewing and can start immediately — happy to walk you through my Flutter, React Native, or React JS work.",
+      formEndpoint: 'https://formspree.io/f/xjyvpzev', // Formspree endpoint the Contact form posts to; editable via Admin Panel
     },
-    services: [
-      { id: 'svc-mobile',  icon: 'mobile',    title: 'Mobile App Development', price: "Let's Discuss", description: 'I build and ship production-ready cross-platform apps — architected for scale, tested to 80%+ coverage, and released to the Play Store and App Store with zero critical post-launch failures.' },
-      { id: 'svc-flutter', icon: 'layers',    title: 'Flutter & React Native Development', price: "Let's Discuss", description: 'I specialize in Flutter and React Native, using BLoC, Provider, GetX, and Redux to build maintainable apps that stay consistent across Android, iOS, and web.' },
-      { id: 'svc-uiux',    icon: 'interface', title: 'UI/UX Implementation & App Experience', price: "Let's Discuss", description: 'I transform designs and ideas into polished, interactive mobile experiences with responsive layouts, smooth interactions, meaningful animations, and attention to usability.' },
-      { id: 'svc-api',     icon: 'link',      title: 'API, Firebase & Real-Time Integration', price: "Let's Discuss", description: 'I connect apps to REST APIs, WebSockets, and Firebase (Auth, Firestore, FCM) — handling real-time data sync, push notifications, and authentication end-to-end.' },
-      { id: 'svc-ai',      icon: 'rocket',    title: 'AI-Assisted Development & Rapid Delivery', price: "Let's Discuss", description: 'I integrate AI coding tools like Claude Code, GitHub Copilot, and Cursor AI into my workflow — cutting debugging time by 30% and speeding up delivery by 20%, without cutting corners on quality.' },
-    ],
-    achievements: [
-      { id: 'ach-1', icon: 'flag',   stage: 'Foundation', year: '2024', title: 'Started My Flutter Journey', achievement: 'Joined Softwingz Infotech as a Flutter Developer Intern, practicing UI implementation, Provider state management, and Firebase/REST API integration under mentorship.', whyItMatters: 'This was where mobile development stopped being theoretical — my first real practice writing code against actual app requirements, and the foundation the rest of my career built on.' },
-      { id: 'ach-2', icon: 'server', stage: 'Production', year: '2025', title: 'Owned Full SDLC at Milople Technologies', achievement: 'Took ownership of the complete development lifecycle — requirements, architecture, development, testing, and store release — across 5+ production Flutter apps, cutting average delivery time by 20% through reusable component design.', whyItMatters: 'Owning a product end to end taught me to think beyond code — about maintainability, reliability, and what a real release actually requires.' },
-      { id: 'ach-3', icon: 'branch', stage: 'Expansion', year: '2026', title: 'Expanded into React Native', achievement: 'Took on an independent freelance Flutter/PHP client engagement, then joined Mitti Labs and expanded into React Native, carrying the same BLoC/Provider/GetX architecture discipline across both frameworks.', whyItMatters: 'Working across two frameworks made me a more adaptable engineer, comfortable picking the right tool instead of the familiar one.' },
-      { id: 'ach-4', icon: 'rocket', stage: 'Shipping', year: '2025', title: '5+ Apps Live, Zero Critical Failures', achievement: 'Shipped 5+ production apps live on the Play Store and App Store, reaching 80%+ unit test coverage on critical modules and cutting post-release bugs by 40%.', whyItMatters: 'Shipping without critical failures isn\u2019t luck — it\u2019s discipline. This is the standard I hold every release to.' },
-      { id: 'ach-5', icon: 'target', stage: 'Impact', year: '2026', title: 'Built TheBidNow\u2019s Real-Time Bidding Engine', achievement: 'Built TheBidNow\u2019s real-time WebSocket bidding engine, supporting concurrent live auctions across 4 sports with sub-200ms response time, while using AI-assisted development to cut debugging time by 30%.', whyItMatters: 'This is the kind of problem I enjoy most — real-time, high-stakes, and only solvable by combining solid architecture with fast, focused execution.' },
+    expertise: [
+      {
+        id: 'exp-area-mobile',
+        icon: 'mobile',
+        title: 'Mobile App Development',
+        description: 'Cross-platform apps built with Flutter and React Native — architected for scale, tested to 80%+ coverage, and released to the Play Store and App Store.',
+        tags: ['Flutter', 'React Native', 'BLoC', 'Provider', 'GetX'],
+        inPractice: '5+ production apps shipped live, zero critical post-launch failures.',
+      },
+      {
+        id: 'exp-area-web',
+        icon: 'layers',
+        title: 'Web Dashboards (React JS)',
+        description: 'Internal admin tools and dashboards built in React JS, TypeScript, and JavaScript — the operational layer that keeps a mobile product running.',
+        tags: ['React JS', 'JavaScript', 'TypeScript'],
+        inPractice: "Built and maintain Mitti Labs' internal admin dashboards for ground ops teams and members.",
+      },
+      {
+        id: 'exp-area-backend',
+        icon: 'link',
+        title: 'Backend, APIs & Real-Time',
+        description: 'REST APIs, WebSockets, and Firebase (Auth, Firestore, FCM) wired up for real-time data sync, push notifications, and authentication end-to-end.',
+        tags: ['REST API', 'WebSocket', 'Firebase', 'MySQL', 'PHP'],
+        inPractice: "TheBidNow's real-time WebSocket bidding engine — concurrent live auctions, sub-200ms response time.",
+      },
+      {
+        id: 'exp-area-quality',
+        icon: 'rocket',
+        title: 'Testing, Architecture & AI-Assisted Delivery',
+        description: 'Clean, modular architecture backed by real test coverage, and AI coding tools (Claude Code, Copilot, Cursor AI) used deliberately to move faster without cutting corners.',
+        tags: ['Clean Architecture', 'Jest', 'flutter_test', 'Claude Code'],
+        inPractice: '80%+ test coverage cut post-release bugs 40%; AI-assisted workflows cut debugging time 30%.',
+      },
     ],
     portfolio: [
-      { id: 'collect',            title: 'Collect',               category: 'mobile', description: 'Own core features on Collect, a React Native app at Mitti Labs connecting 1,000+ registered farmers to a carbon-monitoring and sustainability tracking workflow.', thumbnail: 'assets/thumbnails/collect.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.mitticollect', githubUrl: null },
-      { id: 'thebidnow',          title: 'TheBidNow',              category: 'api',    description: 'Built the real-time WebSocket bidding engine powering concurrent live auctions across 4 sports, with sub-200ms response time and OTP auth.', thumbnail: 'assets/thumbnails/thebidnow.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.thebidnow.auction&hl=en', githubUrl: null },
-      { id: 'amulya-mica',        title: 'Amulya Mica Visualizer', category: 'design', description: 'Built an AR-style product visualization experience at 60fps, reducing purchase-stage drop-off with an interactive preview.', thumbnail: 'assets/thumbnails/amulya-mica.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.amulyamicavisualizer.amulyamicavisualizer', githubUrl: null },
-      { id: 'satvvaahar',         title: 'Satvvaahar',             category: 'mobile', description: 'Shipped Satvvaahar, a food-ordering app with real-time push notifications and order/profile state management.', thumbnail: 'assets/thumbnails/satvvaahar.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.milople.satvaahar&hl=en', githubUrl: null },
-      { id: 'spjym',              title: 'SPJYM',                  category: 'mobile', description: 'Shipped SPJYM (Shree Prarthna Jain Yuvak Mandal), a community-events app with real-time push notifications and profile state management.', thumbnail: 'assets/thumbnails/spjym.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.spjym.shreeprarthnajainyuvak&hl=en', githubUrl: null },
-      { id: 'magento-app',        title: 'Magento Mobile App',     category: 'mobile', description: 'Built an e-commerce app on the Magento REST API with product browsing, cart, and an integration-tested checkout flow.', thumbnail: 'assets/thumbnails/magento-app.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.milople.milople&hl=en', githubUrl: null },
-      { id: 'notenest',           title: 'NoteNest',               category: 'mobile', description: 'An offline-first notes app built solo with Provider and Hive, demonstrating clean architecture and local storage.', thumbnail: 'assets/thumbnails/notenest.jpg', thumbnailPath: null, playStoreUrl: null, githubUrl: 'https://github.com/shahshubham9090/flutter-notenest-app' },
+      { id: 'collect',            title: 'Collect',               category: 'mobile', accent: '#2FBF71', description: 'A React Native app at Mitti Labs connecting 1,000+ registered farmers to a carbon-monitoring and sustainability-tracking workflow.', caseStudy: 'Own core features on Collect, Mitti Labs’ production React Native app for farmer-facing carbon monitoring. Diagnosed and resolved ANR issues via Sentry/Crashlytics, improving stability on the low-end Android devices this user base actually carries.', techStack: ['React Native', 'Firebase'], thumbnail: 'assets/thumbnails/collect.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.mitticollect', githubUrl: null },
+      { id: 'thebidnow',          title: 'TheBidNow',              category: 'api',    accent: '#FF5C33', description: 'The real-time WebSocket bidding engine powering concurrent live auctions across 4 sports, with sub-200ms response time and OTP auth.', caseStudy: 'TheBidNow needed live bidding across 4 sports to feel instant, not laggy. I built the WebSocket bidding engine from scratch — sub-200ms response time, OTP authentication, and predictable BLoC state management across simultaneous auction sessions.', techStack: ['Flutter', 'WebSocket', 'Firebase', 'MySQL', 'BLoC'], thumbnail: 'assets/thumbnails/thebidnow.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.thebidnow.auction&hl=en', githubUrl: null },
+      { id: 'amulya-mica',        title: 'Amulya Mica Visualizer', category: 'design', accent: '#E0A458', description: 'An AR-style product visualization experience at 60fps, reducing purchase-stage drop-off with an interactive preview.', caseStudy: 'Built for Amulya Mica so customers could preview mica sheet products interactively before buying. Sustained 60fps on the live preview, directly reducing drop-off at the purchase stage.', techStack: ['Flutter', 'Firebase', 'Provider'], thumbnail: 'assets/thumbnails/amulya-mica.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.amulyamicavisualizer.amulyamicavisualizer', githubUrl: null },
+      { id: 'satvvaahar',         title: 'Satvvaahar',             category: 'mobile', accent: '#E2543A', description: 'A food-ordering app with real-time push notifications and order/profile state management.', caseStudy: 'Shipped end-to-end at Milople — real-time push notifications for order status, with order/profile state management built to stay predictable under everyday ordering edge cases.', techStack: ['Flutter', 'Firebase', 'MySQL', 'PHP'], thumbnail: 'assets/thumbnails/satvvaahar.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.milople.satvaahar&hl=en', githubUrl: null },
+      { id: 'spjym',              title: 'SPJYM',                  category: 'mobile', accent: '#6C7BFF', description: 'A community-events app (Shree Prarthna Jain Yuvak Mandal) with real-time push notifications and profile state management.', caseStudy: 'Built for a real, active community user base — real-time push notifications and profile state management for event sign-ups and updates.', techStack: ['Flutter', 'Firebase', 'MySQL', 'PHP'], thumbnail: 'assets/thumbnails/spjym.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.spjym.shreeprarthnajainyuvak&hl=en', githubUrl: null },
+      { id: 'magento-app',        title: 'Magento Mobile App',     category: 'mobile', accent: '#3D8BFF', description: 'An e-commerce app on the Magento REST API with product browsing, cart, and an integration-tested checkout flow.', caseStudy: 'Built directly on the Magento REST API — product browsing, cart, and a checkout flow covered with integration tests before it shipped.', techStack: ['Flutter', 'Magento REST API'], thumbnail: 'assets/thumbnails/magento-app.jpg', thumbnailPath: null, playStoreUrl: 'https://play.google.com/store/apps/details?id=com.milople.milople&hl=en', githubUrl: null },
+      { id: 'notenest',           title: 'NoteNest',               category: 'mobile', accent: '#14B8A6', description: 'An offline-first notes app built solo with Provider and Hive, demonstrating clean architecture and local storage.', caseStudy: 'A solo side project written to demonstrate clean architecture and local-storage design end-to-end, with no backend to lean on.', techStack: ['Flutter', 'Provider', 'Hive'], thumbnail: 'assets/thumbnails/notenest.jpg', thumbnailPath: null, playStoreUrl: null, githubUrl: 'https://github.com/shahshubham9090/flutter-notenest-app' },
     ],
   };
 
@@ -181,9 +201,9 @@
       if (!raw) return deepClone(DEFAULTS);
       const parsed = JSON.parse(raw);
       // merge one level deep per top-level section so a content blob saved
-      // before a new field was introduced (e.g. about.experience) doesn't
-      // lose that field — arrays/primitives still fully replace, only
-      // plain objects (site/hero/about/contact) merge their direct keys
+      // before a new field was introduced doesn't lose that field —
+      // arrays/primitives still fully replace, only plain objects
+      // (site/hero/about/contact) merge their direct keys
       const merged = deepClone(DEFAULTS);
       Object.keys(parsed).forEach((k) => {
         if (isPlainObject(merged[k]) && isPlainObject(parsed[k])) {
@@ -231,6 +251,6 @@
   window.SSContent = {
     CONTENT_KEY, DEFAULTS, ICONS, CATEGORY_LABELS,
     get, set, update, resetToDefaults, onChange, newId,
-    accentForIndex, tileSVG,
+    tileSVG,
   };
 })();

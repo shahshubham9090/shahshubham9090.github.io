@@ -52,10 +52,10 @@ against). Don't rely on it to protect sensitive data.
 
 ## How content editing works
 
-All editable content (hero text, About story, Services, Portfolio projects,
-Achievements, Contact info, footer text, color theme) lives in one JSON blob
+All editable content (hero text, bio, Expertise areas, Portfolio projects,
+Highlights, Experience, Contact info, footer text) lives in one JSON blob
 managed by `js/content-store.js`, persisted to the browser's `localStorage`
-under the key `ss_portfolio_content_v1`. Every public page reads from it;
+under the key `ss_portfolio_content_v2`. The single-page site reads from it;
 the Admin Panel writes to it.
 
 Because it's `localStorage`, edits made in the Admin Panel only apply to
@@ -96,29 +96,32 @@ Until that's deployed and configured, image uploads in the Admin Panel will
 show a "not configured" error — everything else in the Admin Panel works
 regardless.
 
-## Color themes
-
-`js/theme-store.js` defines several complete color themes (Sunset, Emerald
-Dusk, Crimson Slate, Violet Copper, Midnight). The live site currently
-defaults to **Midnight** (dark). Switch it anytime from the Admin Panel's
-**Color Themes** panel — it applies instantly across the whole site.
-
-The Admin Panel itself always renders in the light **Sunset** theme
-regardless of what the public site is set to, so editing stays easy to read.
-
 ## Project structure
 
+The public site is a single scrolling page (`index.html`) — Hero, Highlights,
+Expertise, Selected Work, Experience, and a closing Contact CTA, navigated via
+in-page anchors rather than separate page loads. `resume.html` (a standalone
+print/export artifact) and `admin.html` (the CMS) remain separate pages.
+`about.html`, `services.html`, `portfolio.html`, `achievements.html`, and
+`contact.html` are lightweight redirect stubs pointing to the matching
+`index.html#section`, kept only so old bookmarks/links don't 404.
+
 ```
-index.html, about.html, services.html,        Public pages
-portfolio.html, achievements.html, contact.html
+index.html                                    The single-page public site
+resume.html                                   Standalone printable resume
 admin.html                                    Admin Panel (same site, /admin.html)
-css/                                          One stylesheet per page + shared styles.css
+about.html, services.html, portfolio.html,    Redirect stubs -> index.html#section
+achievements.html, contact.html
+css/
+  styles.css                                  Design tokens + every public-site section
+  resume.css, admin.css                       Page-specific styles for their own standalone pages
 js/
   content-store.js                            Shared content (localStorage-backed)
-  theme-store.js                               Color theme definitions + switcher
-  main.js                                      Shared behavior (nav, animations, footer sync)
-  *-render.js                                  Per-page: render content-store data into the DOM
-  admin.js, admin-auth.js                       Admin Panel logic + login gate
+  main.js                                      Shared behavior (nav, scroll-spy, animations, footer sync)
+  site-render.js                               Renders every index.html section from content-store data
+  contact.js                                   Contact form validation + Formspree submission
+  resume-render.js                             Renders resume.html from content-store data
+  admin.js, admin-auth.js                      Admin Panel logic + login gate
 api/
   upload-image.js                              Serverless function: GitHub-backed image upload/delete
 assets/                                        Static images (e.g. homeprofilepic.jpg)

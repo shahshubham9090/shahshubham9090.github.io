@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <script src="js/content-store.js"></script>
-<script src="js/theme-store.js"></script>
 <link rel="stylesheet" href="css/admin.css">
 </head>
 <body class="admin-body">
@@ -25,7 +24,7 @@
       <span>Admin Panel</span>
     </div>
     <h1>Log in to manage your site</h1>
-    <p class="admin-login-sub">Enter your admin credentials to edit content, images, and theme colors.</p>
+    <p class="admin-login-sub">Enter your admin credentials to edit content and images.</p>
 
     <form id="loginForm" novalidate>
       <div class="form-field">
@@ -66,12 +65,11 @@
       <button class="admin-nav-item" data-panel="home">Home Page</button>
       <button class="admin-nav-item" data-panel="portfolio">Portfolio Page</button>
       <button class="admin-nav-item" data-panel="about">About Page</button>
-      <button class="admin-nav-item" data-panel="services">Services</button>
-      <button class="admin-nav-item" data-panel="achievements">Awards &amp; Achievements</button>
+      <button class="admin-nav-item" data-panel="expertise">Expertise</button>
+      <button class="admin-nav-item" data-panel="highlights">Highlights</button>
       <button class="admin-nav-item" data-panel="contact">Contact Information</button>
       <button class="admin-nav-item" data-panel="images">Images &amp; Media</button>
       <button class="admin-nav-item" data-panel="social">Social Media Links</button>
-      <button class="admin-nav-item" data-panel="themes">Color Themes</button>
       <button class="admin-nav-item" data-panel="settings">Website Settings</button>
       <button class="admin-nav-item" data-panel="account">Admin Account</button>
     </nav>
@@ -113,6 +111,24 @@
         </div>
 
         <div class="admin-card">
+          <h3>Availability</h3>
+          <p class="admin-hint">Controls the "Open to Work" pill in the hero. Turn this off once you've accepted an offer.</p>
+          <div class="admin-form-grid">
+            <div class="form-field">
+              <label for="homeAvailableToggle">Show availability pill</label>
+              <select id="homeAvailableToggle">
+                <option value="true">Yes — show it</option>
+                <option value="false">No — hide it</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="homeAvailabilityLabel">Pill text</label>
+              <input type="text" id="homeAvailabilityLabel" placeholder="Open to Work">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
           <h3>Key Numbers</h3>
           <div class="admin-stats-editor" id="statsEditor"></div>
         </div>
@@ -123,8 +139,8 @@
 
       <!-- ---------- PORTFOLIO PAGE ---------- -->
       <section class="admin-panel" data-panel="portfolio">
-        <h2>Portfolio Page</h2>
-        <p class="admin-panel-sub">Add, edit, or remove the projects shown on your Portfolio page and in the Home page's Featured Work section.</p>
+        <h2>Selected Work</h2>
+        <p class="admin-panel-sub">Add, edit, or remove the case-study project cards shown in the Selected Work section.</p>
 
         <div class="admin-list" id="portfolioList"></div>
         <button class="btn btn-outline" id="addProjectBtn">+ Add Project</button>
@@ -159,19 +175,20 @@
         </div>
 
         <div class="admin-card">
-          <h3>My Story</h3>
-          <p class="admin-hint">Separate paragraphs with a blank line.</p>
-          <textarea id="storyTextarea" rows="14"></textarea>
+          <h3>Short Bio</h3>
+          <p class="admin-hint">Shown near the hero. Keep it to 1-2 short paragraphs — separate paragraphs with a blank line.</p>
+          <textarea id="storyTextarea" rows="6"></textarea>
         </div>
 
         <div class="admin-card">
           <h3>Mission Statement</h3>
+          <p class="admin-hint">Used on your Resume page.</p>
           <textarea id="missionTextarea" rows="3"></textarea>
         </div>
 
         <div class="admin-card">
           <h3>Work Experience</h3>
-          <p class="admin-hint">Shown as the timeline on your About page. List one line per bullet point.</p>
+          <p class="admin-hint">Shown as the interactive Experience section. List one line per bullet point, and comma-separated tech tags.</p>
           <div class="admin-list" id="experienceList"></div>
           <button class="btn btn-outline" id="addExperienceBtn" type="button">+ Add Role</button>
         </div>
@@ -180,28 +197,28 @@
         <span class="admin-save-msg" id="aboutSaveMsg"></span>
       </section>
 
-      <!-- ---------- SERVICES ---------- -->
-      <section class="admin-panel" data-panel="services">
-        <h2>Services</h2>
-        <p class="admin-panel-sub">Add, edit, remove, and price the services shown on your Services page (and mirrored on the Home page teaser).</p>
+      <!-- ---------- EXPERTISE ---------- -->
+      <section class="admin-panel" data-panel="expertise">
+        <h2>Expertise</h2>
+        <p class="admin-panel-sub">Add, edit, or remove the capability areas shown in the Expertise section.</p>
 
-        <div class="admin-list" id="servicesList"></div>
-        <button class="btn btn-outline" id="addServiceBtn">+ Add Service</button>
+        <div class="admin-list" id="expertiseList"></div>
+        <button class="btn btn-outline" id="addExpertiseBtn">+ Add Area</button>
         <br><br>
-        <button class="btn btn-primary" id="saveServicesBtn">Save Service Changes</button>
-        <span class="admin-save-msg" id="servicesSaveMsg"></span>
+        <button class="btn btn-primary" id="saveExpertiseBtn">Save Expertise Changes</button>
+        <span class="admin-save-msg" id="expertiseSaveMsg"></span>
       </section>
 
-      <!-- ---------- ACHIEVEMENTS ---------- -->
-      <section class="admin-panel" data-panel="achievements">
-        <h2>Awards &amp; Achievements</h2>
-        <p class="admin-panel-sub">Add, edit, or remove the milestones shown on your Achievements page.</p>
+      <!-- ---------- HIGHLIGHTS ---------- -->
+      <section class="admin-panel" data-panel="highlights">
+        <h2>Highlights</h2>
+        <p class="admin-panel-sub">Add, edit, or remove the proof-point cards shown right under the hero.</p>
 
-        <div class="admin-list" id="achievementsList"></div>
-        <button class="btn btn-outline" id="addAchievementBtn">+ Add Achievement</button>
+        <div class="admin-list" id="highlightsList"></div>
+        <button class="btn btn-outline" id="addHighlightBtn">+ Add Highlight</button>
         <br><br>
-        <button class="btn btn-primary" id="saveAchievementsBtn">Save Achievement Changes</button>
-        <span class="admin-save-msg" id="achievementsSaveMsg"></span>
+        <button class="btn btn-primary" id="saveHighlightsBtn">Save Highlight Changes</button>
+        <span class="admin-save-msg" id="highlightsSaveMsg"></span>
       </section>
 
       <!-- ---------- CONTACT ---------- -->
@@ -273,14 +290,6 @@
 
         <button class="btn btn-primary" id="saveSocialBtn">Save Social Links</button>
         <span class="admin-save-msg" id="socialSaveMsg"></span>
-      </section>
-
-      <!-- ---------- THEMES ---------- -->
-      <section class="admin-panel" data-panel="themes">
-        <h2>Color Themes</h2>
-        <p class="admin-panel-sub">Pick a complete color theme for your entire site. It applies instantly and stays selected after refreshing.</p>
-
-        <div class="admin-theme-grid" id="themeGrid"></div>
       </section>
 
       <!-- ---------- WEBSITE SETTINGS ---------- -->

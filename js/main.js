@@ -65,6 +65,37 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = mainNav.classList.toggle('is-open');
       navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
+    // single-page site: clicking a nav link scrolls within the same
+    // document rather than navigating away, so the mobile menu needs
+    // to close itself instead of a full page load doing it implicitly
+    mainNav.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  /* ---------- Scroll-spy nav highlighting ----------
+     Single-page site: highlight whichever section's nav anchor
+     is currently in view, instead of the old per-page is-active
+     class set at build time. */
+  const navSectionLinks = document.querySelectorAll('.nav-link[data-nav-section]');
+  const spySections = Array.from(navSectionLinks)
+    .map((link) => document.getElementById(link.dataset.navSection))
+    .filter(Boolean);
+
+  if (navSectionLinks.length && spySections.length) {
+    const setActiveSection = (id) => {
+      navSectionLinks.forEach((link) => link.classList.toggle('is-active', link.dataset.navSection === id));
+    };
+    setActiveSection('top');
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActiveSection(entry.target.id);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    spySections.forEach((section) => spyObserver.observe(section));
   }
 
   /* ---------- Animated stat counters ---------- */
@@ -150,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------- Card cursor-follow spotlight ---------- */
-  const spotlightSelector = '.service-card, .service-detail-card, .achv-card, .contact-line, .work-thumb, .project-card';
+  const spotlightSelector = '.stat-item, .highlight-card, .contact-line';
   document.addEventListener('pointermove', (e) => {
     const target = e.target.closest ? e.target.closest(spotlightSelector) : null;
     if (!target) return;
@@ -161,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Magnetic buttons ---------- */
   if (supportsHover && !reduceMotion) {
-    document.querySelectorAll('.btn-primary, .btn-outline').forEach((btn) => {
+    document.querySelectorAll('.btn-primary, .btn-outline, .btn-on-accent, .btn-outline-on-accent').forEach((btn) => {
       const strength = 14;
       const handleMove = (e) => {
         const rect = btn.getBoundingClientRect();
@@ -174,8 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('pointerleave', reset);
     });
 
-    /* ---------- Photo parallax tilt (hero + about story photo) ---------- */
-    document.querySelectorAll('.hero-photo-frame, .story-photo-frame').forEach((frame) => {
+    /* ---------- Photo parallax tilt (hero photo) ---------- */
+    document.querySelectorAll('.hero-photo-frame').forEach((frame) => {
       const handleMove = (e) => {
         const rect = frame.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
