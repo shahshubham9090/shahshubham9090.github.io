@@ -76,6 +76,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- "Home" links (#top) ----------
+     #top is the sticky header itself. A sticky element's offsetTop
+     tracks its current scroll-locked position rather than its static
+     position in the page, so the browser's native anchor-scroll for
+     href="#top" chases a moving target and can scroll to the wrong
+     place entirely (verified: clicking it while scrolled down moved
+     the page further down, not to the top). Every link that means
+     "go home" scrolls there directly instead of relying on that. */
+  document.querySelectorAll('a[href="#top"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      history.replaceState(null, '', '#top');
+    });
+  });
+
+  /* ---------- Theme toggle ---------- */
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle && window.SSTheme) {
+    const syncToggleState = () => {
+      const isLight = window.SSTheme.get() === 'light';
+      themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+      themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    };
+    syncToggleState();
+    themeToggle.addEventListener('click', () => {
+      window.SSTheme.toggle();
+      syncToggleState();
+    });
+  }
+
   /* ---------- Scroll-spy nav highlighting ----------
      Single-page site: highlight whichever section's nav anchor
      is currently in view, instead of the old per-page is-active

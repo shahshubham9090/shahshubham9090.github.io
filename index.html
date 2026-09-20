@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script src="js/theme.js"></script>
 <script src="js/content-store.js"></script>
 <script type="application/ld+json">
 {
@@ -54,6 +55,11 @@
       <a href="#experience" class="nav-link" data-nav-section="experience">Experience</a>
       <a href="#contact" class="nav-link" data-nav-section="contact">Contact</a>
     </nav>
+
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Switch to light mode">
+      <svg class="theme-toggle-icon icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="theme-toggle-icon icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.4M12 19.1v2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
 
     <a href="resume.html" class="btn btn-outline nav-cta btn-resume">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -221,38 +227,6 @@
     </a>
   </section>
 
-  <!-- ================= TECH MARQUEE ================= -->
-  <div class="marquee" aria-label="Technologies I work with">
-    <div class="marquee-track">
-      <span class="marquee-item">Flutter</span>
-      <span class="marquee-item">Dart</span>
-      <span class="marquee-item">React Native</span>
-      <span class="marquee-item">React JS</span>
-      <span class="marquee-item">JavaScript</span>
-      <span class="marquee-item">TypeScript</span>
-      <span class="marquee-item">Firebase</span>
-      <span class="marquee-item">BLoC</span>
-      <span class="marquee-item">Provider</span>
-      <span class="marquee-item">GetX</span>
-      <span class="marquee-item">REST APIs</span>
-      <span class="marquee-item">WebSockets</span>
-      <span class="marquee-item">Play Store &amp; App Store</span>
-      <span class="marquee-item" aria-hidden="true">Flutter</span>
-      <span class="marquee-item" aria-hidden="true">Dart</span>
-      <span class="marquee-item" aria-hidden="true">React Native</span>
-      <span class="marquee-item" aria-hidden="true">React JS</span>
-      <span class="marquee-item" aria-hidden="true">JavaScript</span>
-      <span class="marquee-item" aria-hidden="true">TypeScript</span>
-      <span class="marquee-item" aria-hidden="true">Firebase</span>
-      <span class="marquee-item" aria-hidden="true">BLoC</span>
-      <span class="marquee-item" aria-hidden="true">Provider</span>
-      <span class="marquee-item" aria-hidden="true">GetX</span>
-      <span class="marquee-item" aria-hidden="true">REST APIs</span>
-      <span class="marquee-item" aria-hidden="true">WebSockets</span>
-      <span class="marquee-item" aria-hidden="true">Play Store &amp; App Store</span>
-    </div>
-  </div>
-
   <!-- ================= STATS ================= -->
   <section class="stats" id="stats">
     <div class="ambient-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -403,7 +377,7 @@
               <span class="field-error" id="errorMessage"></span>
             </div>
             <div class="form-submit-row">
-              <button type="submit" class="btn btn-on-accent form-submit" id="formSubmitBtn">Send Message</button>
+              <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">Send Message</button>
               <p class="form-status" id="formStatus" role="status"></p>
             </div>
           </form>
@@ -418,10 +392,10 @@
 <footer class="site-footer">
   <div class="ambient-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="section-inner footer-inner">
-    <div class="footer-brand">
+    <a href="#top" class="footer-brand">
       <span class="brand-mark"><img src="assets/homeprofilepic.jpg" alt="Shubham Shah"></span>
       <p>Shubham Shah<br>Software Engineer — Flutter &amp; React Native</p>
-    </div>
+    </a>
 
     <div class="footer-links">
       <h4>Quick Links</h4>

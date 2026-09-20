@@ -66,7 +66,14 @@
     }
 
     const locationEl = document.getElementById('heroLocation');
-    if (locationEl) locationEl.textContent = (content.about.quickFacts && content.about.quickFacts.location) || 'India';
+    if (locationEl) {
+      // the hero status chip is a compact single-line pill — show just the
+      // city (first comma-separated segment) rather than the full
+      // "City, State, Country" string used elsewhere (e.g. the resume),
+      // which was long enough to wrap and spill outside the pill shape
+      const fullLocation = (content.about.quickFacts && content.about.quickFacts.location) || 'India';
+      locationEl.textContent = fullLocation.split(',')[0].trim();
+    }
 
     const availChip = document.getElementById('heroAvailabilityChip');
     const availLabel = document.getElementById('heroAvailabilityLabel');

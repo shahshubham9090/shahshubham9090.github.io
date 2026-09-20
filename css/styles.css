@@ -1,26 +1,35 @@
 /* =========================================================
    SHUBHAM SHAH — PORTFOLIO DESIGN SYSTEM
-   Single-page, single-theme, recruiter-first rebuild.
-   This file is the single source of truth for design tokens
-   and every section on the site.
+   Single-page site with a dual-theme design-token system.
+   Dark is the default (applied by :root); an explicit
+   [data-theme="light"] attribute on <html> (set by js/theme.js,
+   persisted via localStorage) swaps every token to the light set
+   below. Every component consumes these custom properties —
+   never a raw hex — so nothing goes accidentally-dark/light when
+   the theme switches.
    ========================================================= */
 
 :root {
-  /* --- Color tokens (one signature dark theme) --- */
-  --color-bg:        #0B0B12;   /* near-black base */
-  --color-bg-alt:    #121219;   /* slightly lifted panel/section background */
-  --color-surface:   #16161F;   /* card / panel surface */
-  --color-ink:       #F4F3F9;   /* primary text, near-white */
-  --color-ink-soft:  #B7B5C7;   /* secondary text */
-  --color-muted:     #83809A;   /* tertiary text */
-  --color-line:      #26263A;   /* hairline structural rule */
-  --color-on-dark:   #F4F3F9;   /* kept as an alias of --color-ink: every section is dark now */
+  /* --- Color tokens: DARK (default) --- */
+  --color-bg:              #0B0B12;   /* near-black base */
+  --color-bg-alt:          #121219;   /* slightly lifted panel/section background */
+  --color-surface:         #16161F;   /* card / panel surface */
+  --color-surface-elevated:#1D1D28;   /* hover/elevated surface, one step up from --color-surface */
+  --color-input-bg:        #0F0F16;   /* recessed field background, one step down from --color-surface */
+  --color-ink:             #F4F3F9;   /* primary text, near-white */
+  --color-ink-soft:        #B7B5C7;   /* secondary text */
+  --color-muted:           #83809A;   /* tertiary text */
+  --color-line:            #26263A;   /* hairline structural rule */
+  --color-on-dark:         #F4F3F9;   /* alias of --color-ink, kept for older rules */
+  --color-overlay:         rgba(6, 6, 10, 0.6);
 
-  --color-orange:    #FF5C33;   /* primary accent — used deliberately, not alternated */
-  --color-orange-dim:#FF5C331a;
-  --color-blue:      #4C7CFF;   /* secondary accent — reserved for focus rings and per-project accents, not shared chrome */
-  --color-blue-dim:  #4C7CFF1a;
-  --color-error:     #FF6B5B;
+  --color-orange:          #FF5C33;   /* primary accent — used deliberately, not alternated */
+  --color-orange-dim:      #FF5C331a;
+  --color-blue:            #4C7CFF;   /* secondary accent — focus rings, per-project accents */
+  --color-blue-dim:        #4C7CFF1a;
+  --color-success:         #2FBF71;
+  --color-warning:         #FFB020;
+  --color-error:           #FF6B5B;
 
   /* --- Type tokens --- */
   --font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
@@ -34,6 +43,18 @@
   --fs-body:      1.05rem;
   --fs-small:     0.9rem;
 
+  /* --- Spacing scale (4px base) — section/card/gap values across
+     the file are expressed as multiples of this scale rather than
+     arbitrary numbers ---*/
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-7: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+
   /* --- Layout tokens --- */
   --max-width:    1240px;
   --gutter:       clamp(1.5rem, 5vw, 4rem);
@@ -42,6 +63,33 @@
   --radius-l:     20px;
 
   --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme="light"] {
+  /* --- Color tokens: LIGHT (opt-in via the header theme toggle) ---
+     Designed as its own palette, not an inversion of the dark set:
+     warm off-white base (not stark white), white cards for contrast
+     against it, a darker/richer accent tuned to pass AA on a light
+     background instead of reusing the dark theme's brighter orange. */
+  --color-bg:              #F7F5F1;
+  --color-bg-alt:          #EFEBE4;
+  --color-surface:         #FFFFFF;
+  --color-surface-elevated:#FFFFFF;
+  --color-input-bg:        #FFFFFF;
+  --color-ink:             #17151F;
+  --color-ink-soft:        #4A465A;
+  --color-muted:           #6B6678;
+  --color-line:            #E3DFD6;
+  --color-on-dark:         #17151F;
+  --color-overlay:         rgba(23, 21, 31, 0.35);
+
+  --color-orange:          #D6431C;
+  --color-orange-dim:      #D6431C1a;
+  --color-blue:            #2F5FE0;
+  --color-blue-dim:        #2F5FE01a;
+  --color-success:         #1C9A5B;
+  --color-warning:         #B8790A;
+  --color-error:           #C4281A;
 }
 
 /* =========================================================
@@ -78,6 +126,18 @@ body {
   font-size: var(--fs-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Theme switch should read as a smooth cross-fade, not a hard cut.
+   Cards/buttons already transition background-color/color/border-color
+   as part of their hover states, so they animate the token swap for
+   free. The plain section wrappers below have no hover state and no
+   transition of their own, so without this their background would snap
+   instantly while everything inside them fades. */
+.site-header, .site-footer, .hero, .stats, .highlights, .md-section,
+.work, .closing-cta {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
 img, svg { display: block; max-width: 100%; }
@@ -310,18 +370,43 @@ main [id] { scroll-margin-top: 88px; }
 
 .nav-cta { flex-shrink: 0; }
 
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  transition: color 0.3s var(--ease-cinematic), border-color 0.3s var(--ease-cinematic), background-color 0.3s var(--ease-cinematic);
+}
+.theme-toggle:hover { color: var(--color-ink); border-color: var(--color-ink-soft); }
+.theme-toggle-icon { width: 19px; height: 19px; }
+.theme-toggle-icon.icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle-icon.icon-moon { display: none; }
+:root[data-theme="light"] .theme-toggle-icon.icon-sun { display: block; }
+
 .nav-toggle {
   display: none;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   gap: 5px;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
   background: none;
   border: none;
   cursor: pointer;
 }
 .nav-toggle span {
+  width: 22px;
   height: 2px;
   background: var(--color-ink);
   border-radius: 2px;
@@ -404,26 +489,34 @@ main [id] { scroll-margin-top: 88px; }
 .hero-status-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  flex-wrap: wrap;
+  row-gap: 0.2rem;
+  column-gap: 0.55rem;
   padding: 0.5rem 0.95rem;
   border: 1px solid var(--color-line);
   border-radius: 999px;
   font-size: 0.82rem;
   color: var(--color-ink-soft);
   font-variant-numeric: tabular-nums;
+  /* content-store text is admin-editable, so this can't assume it will
+     always fit on one line — flex-wrap keeps a longer value from
+     spilling outside the pill's rounded background */
+}
+@media (max-width: 480px) {
+  .hero-status-chip { border-radius: var(--radius-m); }
 }
 .hero-status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #2FBF71;
-  box-shadow: 0 0 0 3px color-mix(in srgb, #2FBF71 25%, transparent);
+  background: var(--color-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 25%, transparent);
   animation: statusPulse 2.4s ease-in-out infinite;
   flex-shrink: 0;
 }
 .hero-status-chip.is-available {
   color: var(--color-ink);
-  border-color: color-mix(in srgb, #2FBF71 45%, var(--color-line));
+  border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-line));
 }
 @keyframes statusPulse {
   0%, 100% { opacity: 1; }
@@ -599,8 +692,11 @@ main [id] { scroll-margin-top: 88px; }
   font-size: 0.82rem;
   line-height: 1.7;
   color: var(--color-ink-soft);
-  overflow-x: auto;
-  white-space: pre;
+  /* wrap rather than rely on horizontal scroll: on narrow viewports the
+     longer lines (e.g. the "stack" array) were being clipped with no
+     visible scrollbar and no indication there was more to see */
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .hero-code-body .tok-kw   { color: var(--color-blue); }
 .hero-code-body .tok-key  { color: var(--color-ink); }
@@ -866,9 +962,11 @@ main [id] { scroll-margin-top: 88px; }
 
 @media (max-width: 860px) {
   .md-layout { grid-template-columns: 1fr; }
-  .md-nav { position: static; flex-direction: row; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.3rem; }
-  .md-nav::-webkit-scrollbar { display: none; }
-  .md-nav-btn { flex-shrink: 0; width: auto; border-left: none; border-bottom: 2px solid var(--color-line); border-radius: 0; }
+  /* wrap instead of horizontally scroll: a scrollable tab row with no
+     visible scrollbar and no edge fade looked like the last tab had been
+     cut off, with no affordance telling a mouse/trackpad user to scroll */
+  .md-nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.6rem; }
+  .md-nav-btn { flex: 1 1 auto; width: auto; border-left: none; border-bottom: 2px solid var(--color-line); border-radius: 0; }
   .md-nav-btn.is-active { border-bottom-color: var(--color-orange); }
 }
 
@@ -904,7 +1002,7 @@ main [id] { scroll-margin-top: 88px; }
   position: relative;
   overflow: hidden;
   background: color-mix(in srgb, var(--card-accent) 20%, var(--color-bg));
-  min-height: 240px;
+  aspect-ratio: 4 / 3;
 }
 .work-card-media img, .work-card-media svg {
   width: 100%;
@@ -928,7 +1026,10 @@ main [id] { scroll-margin-top: 88px; }
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--card-accent);
+  /* blended toward --color-ink rather than the raw per-project accent so
+     every project's tag stays legible against the surface in both themes,
+     regardless of how light/saturated that project's accent color is */
+  color: color-mix(in srgb, var(--card-accent) 65%, var(--color-ink) 35%);
   margin-bottom: 0.9rem;
 }
 .work-card-tag::before {
@@ -986,7 +1087,6 @@ main [id] { scroll-margin-top: 88px; }
 @media (max-width: 860px) {
   .work-card, .work-card:nth-child(even) { grid-template-columns: 1fr; }
   .work-card:nth-child(even) .work-card-media { order: 0; }
-  .work-card-media { min-height: 200px; }
 }
 
 /* =========================================================
@@ -1000,7 +1100,11 @@ main [id] { scroll-margin-top: 88px; }
   color: var(--color-bg);
   padding: clamp(4rem, 12vh, 7rem) 0;
 }
-.closing-cta .section-label { color: color-mix(in srgb, var(--color-bg) 70%, transparent); }
+/* text sitting directly on the solid orange band needs a stronger bg-mix
+   than the 6-8% used for surfaces elsewhere in the file — anything lighter
+   than ~80% failed WCAG AA (verified: 70% mix measured 4.18:1, below the
+   4.5:1 small-text minimum) */
+.closing-cta .section-label { color: color-mix(in srgb, var(--color-bg) 82%, transparent); }
 .closing-cta .section-label-index { color: var(--color-bg); border-color: color-mix(in srgb, var(--color-bg) 35%, transparent); }
 .closing-cta .section-label-rule { background: color-mix(in srgb, var(--color-bg) 25%, transparent); }
 .closing-cta h2 {
@@ -1011,8 +1115,18 @@ main [id] { scroll-margin-top: 88px; }
 .closing-cta-sub {
   max-width: 46ch;
   font-size: 1.05rem;
-  color: color-mix(in srgb, var(--color-bg) 78%, transparent);
+  color: color-mix(in srgb, var(--color-bg) 82%, transparent);
   margin-bottom: 2.2rem;
+}
+/* focus-visible everywhere else uses --color-blue, which measures only
+   1.21:1 against this section's orange background — effectively invisible.
+   Every interactive element in this section (buttons, form fields, contact
+   links) needs its own high-contrast override. */
+.closing-cta a:focus-visible,
+.closing-cta button:focus-visible,
+.closing-cta input:focus-visible,
+.closing-cta textarea:focus-visible {
+  outline-color: var(--color-bg);
 }
 .closing-cta-actions {
   display: flex;
@@ -1028,18 +1142,27 @@ main [id] { scroll-margin-top: 88px; }
   padding-top: clamp(2.5rem, 6vh, 3.5rem);
   border-top: 1px solid color-mix(in srgb, var(--color-bg) 20%, transparent);
 }
+/* Below, contact-line / contact-form-col deliberately use the same solid
+   surface/line/ink tokens as every other card on the site (not a
+   bg-color-mix tint) — they read as clean dark/light "cutout" cards
+   floating on the orange band. This replaces an earlier version that
+   tinted everything a few percent off the orange itself: form input
+   borders measured 1.61:1 against the background (WCAG needs 3:1 for UI
+   component boundaries) and were nearly invisible; this fixes that by
+   construction, since surface/ink/line already carry verified AA contrast
+   against each other in both themes. */
 .contact-details { display: flex; flex-direction: column; gap: 0.9rem; }
 .contact-line {
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 1.1rem 1.3rem;
-  background: color-mix(in srgb, var(--color-bg) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-bg) 20%, transparent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-m);
   transition: transform 0.4s var(--ease-cinematic), background-color 0.4s var(--ease-cinematic);
 }
-.contact-line:hover { transform: translateY(-3px); background: color-mix(in srgb, var(--color-bg) 14%, transparent); }
+.contact-line:hover { transform: translateY(-3px); background: var(--color-surface-elevated); }
 .contact-line-icon {
   flex-shrink: 0;
   width: 40px;
@@ -1048,48 +1171,48 @@ main [id] { scroll-margin-top: 88px; }
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-s);
-  background: color-mix(in srgb, var(--color-bg) 14%, transparent);
-  color: var(--color-bg);
+  background: color-mix(in srgb, var(--color-orange) 16%, transparent);
+  color: var(--color-orange);
 }
 .contact-line-icon svg { width: 19px; height: 19px; fill: currentColor; }
 .contact-line-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
-.contact-line-label { font-size: 0.78rem; color: color-mix(in srgb, var(--color-bg) 65%, transparent); }
-.contact-line-value { font-weight: 600; font-size: 0.98rem; color: var(--color-bg); overflow-wrap: anywhere; }
+.contact-line-label { font-size: 0.78rem; color: var(--color-muted); }
+.contact-line-value { font-weight: 600; font-size: 0.98rem; color: var(--color-ink); overflow-wrap: anywhere; }
 
 .contact-form-col {
-  background: color-mix(in srgb, var(--color-bg) 6%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-bg) 20%, transparent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-m);
   padding: clamp(1.8rem, 3vw, 2.6rem);
 }
 .contact-form { display: flex; flex-direction: column; gap: 1.4rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
 .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
-.form-field label { font-size: 0.88rem; font-weight: 600; color: var(--color-bg); }
-.field-optional { font-weight: 400; color: color-mix(in srgb, var(--color-bg) 65%, transparent); }
+.form-field label { font-size: 0.88rem; font-weight: 600; color: var(--color-ink); }
+.field-optional { font-weight: 400; color: var(--color-muted); }
 .form-field input, .form-field textarea {
   width: 100%;
   font-family: var(--font-body);
   font-size: 0.96rem;
-  color: var(--color-bg);
-  background: color-mix(in srgb, var(--color-bg) 10%, transparent);
-  border: 1.5px solid color-mix(in srgb, var(--color-bg) 25%, transparent);
+  color: var(--color-ink);
+  background: var(--color-input-bg);
+  border: 1.5px solid var(--color-line);
   border-radius: var(--radius-s);
   padding: 0.85rem 1rem;
   transition: border-color 0.35s var(--ease-cinematic), box-shadow 0.35s var(--ease-cinematic);
 }
 .form-field textarea { resize: vertical; min-height: 120px; }
-.form-field input::placeholder, .form-field textarea::placeholder { color: color-mix(in srgb, var(--color-bg) 55%, transparent); }
+.form-field input::placeholder, .form-field textarea::placeholder { color: var(--color-muted); }
 .form-field input:focus, .form-field textarea:focus {
   outline: none;
-  border-color: var(--color-bg);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-bg) 18%, transparent);
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 4px var(--color-orange-dim);
 }
-.form-field.has-error input, .form-field.has-error textarea { border-color: #7A1F0F; }
+.form-field.has-error input, .form-field.has-error textarea { border-color: var(--color-error); }
 .field-error {
   min-height: 1.1em;
   font-size: 0.8rem;
-  color: #3D1206;
+  color: var(--color-error);
   font-weight: 700;
   opacity: 0;
   transform: translateY(-2px);
@@ -1100,7 +1223,7 @@ main [id] { scroll-margin-top: 88px; }
 .form-submit { align-self: flex-start; }
 .form-status {
   font-size: 0.9rem;
-  color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  color: var(--color-ink-soft);
   max-width: 46ch;
   line-height: 1.55;
   opacity: 0;
@@ -1108,7 +1231,7 @@ main [id] { scroll-margin-top: 88px; }
   transition: opacity 0.4s var(--ease-cinematic), transform 0.4s var(--ease-cinematic);
 }
 .form-status.is-visible { opacity: 1; transform: translateY(0); }
-.form-status.is-error { color: #3D1206; font-weight: 700; }
+.form-status.is-error { color: var(--color-error); font-weight: 700; }
 
 @media (max-width: 860px) {
   .closing-cta-grid { grid-template-columns: 1fr; }
@@ -1135,7 +1258,8 @@ main [id] { scroll-margin-top: 88px; }
   grid-template-columns: 1.4fr 1fr 1fr;
   gap: 2rem;
 }
-.footer-brand { display: flex; gap: 1rem; align-items: flex-start; }
+.footer-brand { display: flex; gap: 1rem; align-items: flex-start; transition: opacity 0.3s var(--ease-cinematic); }
+.footer-brand:hover { opacity: 0.8; }
 .footer-brand .brand-mark {
   width: 46px;
   height: 46px;
@@ -1340,27 +1464,6 @@ main [id] { scroll-margin-top: 88px; }
 .back-to-top.is-visible { opacity: 1; transform: translateY(0) scale(1); visibility: visible; }
 .back-to-top:hover { transform: translateY(-3px) scale(1.05); }
 .back-to-top svg { width: 18px; height: 18px; }
-
-.marquee {
-  position: relative;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-  background: var(--color-bg-alt);
-  overflow: hidden;
-  padding: 1.1rem 0;
-}
-.marquee-track { display: flex; gap: 2.4rem; width: max-content; animation: marqueeScroll 26s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
-.marquee-item {
-  display: flex; align-items: center; gap: 0.6rem;
-  font-family: var(--font-display); font-weight: 600; font-size: 1rem;
-  color: var(--color-ink-soft); white-space: nowrap;
-}
-.marquee-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--color-orange); }
-@keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
 
 /* =========================================================
    RESPONSIVE
