@@ -1002,14 +1002,22 @@ main [id] { scroll-margin-top: 88px; }
   position: relative;
   overflow: hidden;
   background: color-mix(in srgb, var(--card-accent) 20%, var(--color-bg));
-  aspect-ratio: 4 / 3;
+  /* matches the ~16:9 aspect ratio of the actual project thumbnails —
+     these are wide marketing-banner graphics with text near the edges,
+     so object-fit:cover at the previous 4:3 ratio was cropping title
+     text and bullet copy off the sides on every project */
+  aspect-ratio: 16 / 9;
 }
 .work-card-media img, .work-card-media svg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s var(--ease-cinematic);
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: transform 0.7s var(--ease-cinematic), opacity 0.7s var(--ease-cinematic);
 }
+.work-card.is-visible .work-card-media img,
+.work-card.is-visible .work-card-media svg { opacity: 1; transform: scale(1); }
 .work-card:hover .work-card-media img,
 .work-card:hover .work-card-media svg { transform: scale(1.05); }
 .work-card-body {
@@ -1078,10 +1086,26 @@ main [id] { scroll-margin-top: 88px; }
 }
 .work-behind[open] summary::before { content: '\2212 '; }
 .work-behind p {
-  margin-top: 0.8rem;
+  margin-top: 0;
   font-size: 0.92rem;
   line-height: 1.65;
   color: var(--color-ink-soft);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.45s var(--ease-cinematic), opacity 0.4s var(--ease-cinematic), margin-top 0.45s var(--ease-cinematic);
+}
+/* Note: there is deliberately no `.work-behind[open] p { max-height: ... }`
+   fallback rule here. This entire site already renders nothing without
+   JavaScript (every piece of text comes from content-store.js), so a
+   no-JS fallback for just this one disclosure buys nothing — and an
+   `[open]` rule with any fixed max-height fires synchronously the
+   instant the attribute changes, before js/main.js's toggle handler
+   gets a chance to run, which was overriding it into painting the
+   fully-open state on the very first frame; the actual open/close
+   height and opacity are set entirely by main.js's toggle listener. */
+@media (prefers-reduced-motion: reduce) {
+  .work-behind p { transition: none; }
 }
 
 @media (max-width: 860px) {

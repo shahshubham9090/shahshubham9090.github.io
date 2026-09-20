@@ -92,6 +92,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ---------- Smooth "Behind the build" disclosure ----------
+     The CSS fallback (max-height: 20em) is a generous fixed ceiling so
+     it still works with JS disabled, but for actual content that's only
+     ~50px tall, animating toward a 320px ceiling meant nearly the whole
+     visible reveal happened in the first few milliseconds of the
+     ease-out curve — it looked like an instant snap, not a transition.
+     Setting the real measured height here fixes that for every card
+     regardless of how long its case-study paragraph is. */
+  document.querySelectorAll('.work-behind').forEach((details) => {
+    const p = details.querySelector('p');
+    if (!p) return;
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        p.style.maxHeight = '0px';
+        p.style.opacity = '0';
+        p.style.marginTop = '0px';
+        // deferring the target values to their own frame (double rAF)
+        // guarantees the browser paints the 0px/collapsed state first,
+        // so the transition has something to animate from instead of
+        // jumping straight to the open state on the first frame
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            p.style.maxHeight = `${p.scrollHeight}px`;
+            p.style.opacity = '1';
+            p.style.marginTop = '0.8rem';
+          });
+        });
+      } else {
+        p.style.maxHeight = '0px';
+        p.style.opacity = '0';
+        p.style.marginTop = '0px';
+      }
+    });
+  });
+
   /* ---------- Theme toggle ---------- */
   const themeToggle = document.getElementById('themeToggle');
   if (themeToggle && window.SSTheme) {
