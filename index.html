@@ -2,11 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+  // Canonicalize the URL as early as possible: if a visitor lands on
+  // the literal /index.html (an old bookmark, a shared link, a search
+  // result, or just someone typing it), every in-page anchor click
+  // afterwards only ever changes the #hash — it never rewrites the
+  // path — so index.html would stay stuck in the address bar for the
+  // rest of that visit. Rewriting it once, up front, fixes that.
+  (function () {
+    if (/\/index\.html$/i.test(location.pathname)) {
+      history.replaceState(null, '', location.pathname.replace(/index\.html$/i, '') + location.search + location.hash);
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shubham Shah — Software Engineer, Flutter &amp; React Native</title>
 <meta name="description" content="Shubham Shah — Software Engineer with 2+ years shipping production Flutter, React Native, and React JS apps. 5+ apps live, zero critical post-launch failures. Open to work.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="canonical" href="https://shahshubham9090.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shubham Shah — Software Engineer, Flutter &amp; React Native">
 <meta property="og:description" content="2+ years shipping production Flutter, React Native, and React JS apps. 5+ apps live, zero critical post-launch failures. Open to work.">
