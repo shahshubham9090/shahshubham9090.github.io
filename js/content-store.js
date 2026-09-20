@@ -60,9 +60,9 @@
       { key: 'failures', value: 0,  decimals: 0, suffix: '',  label: 'Critical Post-Launch Failures' },
     ],
     highlights: [
-      { id: 'hl-ship',   icon: 'rocket', stat: '5+ / 0',      title: 'Shipped Live, Zero Critical Failures', description: 'Five-plus production apps live on the Play Store and App Store — every release with zero critical post-launch failures.' },
-      { id: 'hl-testing', icon: 'target', stat: '80%+ → −40%', title: 'Testing Discipline That Pays Off', description: '80%+ test coverage on critical modules cut post-release bugs by 40%, backed by disciplined unit, integration, and widget testing.' },
-      { id: 'hl-realtime', icon: 'branch', stat: 'Sub-200ms', title: 'Real-Time at Scale', description: "Built TheBidNow's WebSocket bidding engine — concurrent live auctions across 4 sports, sub-200ms response time." },
+      { id: 'hl-ship',   icon: 'rocket', stat: '5+',      title: 'Shipped Live, Zero Critical Failures', description: 'Five-plus production apps live on the Play Store and App Store — every release with zero critical post-launch failures.' },
+      { id: 'hl-testing', icon: 'target', stat: '-40%', title: 'Testing Discipline That Pays Off', description: '80%+ test coverage on critical modules cut post-release bugs by 40%, backed by disciplined unit, integration, and widget testing.' },
+      { id: 'hl-realtime', icon: 'branch', stat: '<200ms', title: 'Real-Time at Scale', description: "Built TheBidNow's WebSocket bidding engine — concurrent live auctions across 4 sports, sub-200ms response time." },
       { id: 'hl-dashboards', icon: 'server', stat: '1,000+', title: 'Production Dashboards & Field Impact', description: "Ship React Native features and React JS admin dashboards at Mitti Labs' Collect, connecting 1,000+ registered farmers to ground ops." },
     ],
     about: {

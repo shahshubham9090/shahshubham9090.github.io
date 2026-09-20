@@ -783,6 +783,7 @@ main [id] { scroll-margin-top: 88px; }
   gap: 1.5rem;
 }
 .highlight-card {
+  --card-accent: var(--color-orange);
   background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-m);
@@ -791,6 +792,21 @@ main [id] { scroll-margin-top: 88px; }
   overflow: hidden;
   transition: transform 0.4s var(--ease-cinematic), border-color 0.4s var(--ease-cinematic), box-shadow 0.4s var(--ease-cinematic);
 }
+/* each card gets its own accent, matching the per-project accent system
+   already used in Selected Work — four identical orange-only cards in a
+   row read as flat/repetitive; distinct color per metric gives the row
+   some visual variety while staying inside the established palette */
+.highlight-card:nth-child(4n+2) { --card-accent: var(--color-success); }
+.highlight-card:nth-child(4n+3) { --card-accent: var(--color-blue); }
+.highlight-card:nth-child(4n+4) { --card-accent: var(--color-warning); }
+.highlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent);
+  opacity: 0.7;
+}
 .highlight-card::after {
   content: '';
   position: absolute;
@@ -798,39 +814,41 @@ main [id] { scroll-margin-top: 88px; }
   z-index: 2;
   opacity: 0;
   border-radius: inherit;
-  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-orange) 14%, transparent), transparent 70%);
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--card-accent) 14%, transparent), transparent 70%);
   transition: opacity 0.4s var(--ease-cinematic);
   pointer-events: none;
 }
 .highlight-card:hover {
   transform: translateY(-6px);
-  border-color: color-mix(in srgb, var(--color-orange) 40%, var(--color-line));
-  box-shadow: 0 24px 46px -28px color-mix(in srgb, var(--color-orange) 45%, transparent);
+  border-color: color-mix(in srgb, var(--card-accent) 40%, var(--color-line));
+  box-shadow: 0 24px 46px -28px color-mix(in srgb, var(--card-accent) 45%, transparent);
 }
 .highlight-card:hover::after { opacity: 1; }
 .highlight-icon {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--color-orange) 16%, transparent);
-  color: var(--color-orange);
-  margin-bottom: 1.3rem;
+  background: color-mix(in srgb, var(--card-accent) 16%, transparent);
+  color: var(--card-accent);
+  margin-bottom: 1.4rem;
 }
-.highlight-icon svg { width: 22px; height: 22px; }
+.highlight-icon svg { width: 23px; height: 23px; }
 .highlight-stat {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-ink);
-  margin-bottom: 0.4rem;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--card-accent);
+  margin-bottom: 0.7rem;
   font-variant-numeric: tabular-nums;
 }
 .highlight-card h3 {
-  font-size: 0.98rem;
-  margin-bottom: 0.55rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
   color: var(--color-ink);
 }
 .highlight-card p {
@@ -1443,11 +1461,11 @@ main [id] { scroll-margin-top: 88px; }
   background: linear-gradient(120deg, transparent, color-mix(in srgb, var(--color-ink) 12%, transparent), transparent);
 }
 
-.stat-item, .highlight-card, .contact-line, .md-nav-btn {
+.stat-item, .contact-line, .md-nav-btn {
   position: relative;
   overflow: hidden;
 }
-.stat-item::after, .highlight-card::after, .contact-line::after {
+.stat-item::after, .contact-line::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -1458,7 +1476,7 @@ main [id] { scroll-margin-top: 88px; }
   transition: opacity 0.4s var(--ease-cinematic);
   pointer-events: none;
 }
-.stat-item:hover::after, .highlight-card:hover::after, .contact-line:hover::after { opacity: 1; }
+.stat-item:hover::after, .contact-line:hover::after { opacity: 1; }
 
 .hero-photo-frame { transition: transform 0.25s var(--ease-cinematic); will-change: transform; }
 
