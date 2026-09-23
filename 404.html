@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Shubham Shah</title>
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/theme.js"></script>
+<style>
+  .notfound-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--gutter);
+    position: relative;
+    overflow: hidden;
+  }
+  .notfound-code {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-weight: 700;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--color-orange);
+    margin-bottom: 1rem;
+  }
+  .notfound-page h1 {
+    font-size: var(--fs-h2);
+    margin-bottom: 0.9rem;
+  }
+  .notfound-page p {
+    color: var(--color-ink-soft);
+    max-width: 42ch;
+    margin-bottom: 2.2rem;
+    font-size: 1.05rem;
+  }
+  .notfound-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+<div class="notfound-page">
+  <div class="ambient-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <span class="notfound-code" aria-hidden="true">404</span>
+  <h1>This page doesn't exist.</h1>
+  <p>The link you followed may be broken, or the page may have moved. Let's get you back to somewhere useful.</p>
+  <div class="notfound-actions">
+    <a href="/" class="btn btn-primary">Back to Home</a>
+    <a href="/resume.html" class="btn btn-outline">View Resume</a>
+  </div>
+</div>
+</body>
+</html>
