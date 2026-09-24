@@ -230,6 +230,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 
+  /* ---------- WhatsApp FAB (hidden over the hero, visible once scrolled past it) ---------- */
+  const whatsappFab = document.getElementById('whatsappFab');
+  const heroSection = document.querySelector('.hero');
+  if (whatsappFab && heroSection) {
+    const updateWhatsappFab = () => {
+      const heroBottom = heroSection.getBoundingClientRect().bottom;
+      whatsappFab.classList.toggle('is-visible', heroBottom < window.innerHeight * 0.5);
+    };
+    updateWhatsappFab();
+    window.addEventListener('scroll', updateWhatsappFab, { passive: true });
+  }
+
   /* ---------- Cursor spotlight (desktop only) ---------- */
   if (supportsHover && !reduceMotion) {
     const glow = document.createElement('div');

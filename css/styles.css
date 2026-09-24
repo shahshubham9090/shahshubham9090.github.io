@@ -1586,6 +1586,48 @@ main [id] { scroll-margin-top: 88px; }
 .back-to-top:hover { transform: translateY(-3px) scale(1.05); }
 .back-to-top svg { width: 18px; height: 18px; }
 
+.whatsapp-fab {
+  position: fixed;
+  left: 1.6rem; bottom: 1.6rem;
+  z-index: 150;
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-orange);
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--color-orange) 65%, transparent);
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease-cinematic), transform 0.4s var(--ease-cinematic), visibility 0.4s, box-shadow 0.3s;
+}
+.whatsapp-fab.is-visible { opacity: 1; transform: translateY(0) scale(1); visibility: visible; }
+.whatsapp-fab:hover { transform: translateY(-3px) scale(1.05); }
+.whatsapp-fab svg { width: 26px; height: 26px; }
+.whatsapp-fab-tooltip {
+  position: absolute;
+  left: calc(100% + 0.7rem);
+  top: 50%; transform: translateY(-50%);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+.whatsapp-fab:hover .whatsapp-fab-tooltip,
+.whatsapp-fab:focus-visible .whatsapp-fab-tooltip { opacity: 1; visibility: visible; }
+@media (max-width: 620px) {
+  .whatsapp-fab { left: 1rem; bottom: 1rem; width: 48px; height: 48px; }
+  .whatsapp-fab svg { width: 24px; height: 24px; }
+  .whatsapp-fab-tooltip { display: none; }
+}
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
