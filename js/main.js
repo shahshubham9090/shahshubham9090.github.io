@@ -173,8 +173,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const valueEl = el.querySelector('.stat-value');
     if (!valueEl) return;
 
+    const format = (n) => n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
     if (reduceMotion) {
-      valueEl.textContent = target.toFixed(decimals);
+      valueEl.textContent = format(target);
       return;
     }
 
@@ -185,11 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
       const current = target * eased;
-      valueEl.textContent = current.toFixed(decimals);
+      valueEl.textContent = format(current);
       if (progress < 1) {
         requestAnimationFrame(tick);
       } else {
-        valueEl.textContent = target.toFixed(decimals);
+        valueEl.textContent = format(target);
       }
     };
     requestAnimationFrame(tick);

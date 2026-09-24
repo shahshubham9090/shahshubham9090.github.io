@@ -57,7 +57,7 @@
       { key: 'apps',     value: 5,  decimals: 0, suffix: '+', label: 'Apps Shipped Live' },
       { key: 'years',    value: 2,  decimals: 0, suffix: '+', label: 'Years Experience' },
       { key: 'coverage', value: 80, decimals: 0, suffix: '%', label: 'Test Coverage' },
-      { key: 'failures', value: 0,  decimals: 0, suffix: '',  label: 'Critical Post-Launch Failures' },
+      { key: 'users',    value: 5000, decimals: 0, suffix: '+', label: 'Users Across All Apps' },
     ],
     highlights: [
       { id: 'hl-ship',   icon: 'rocket', stat: '5+',      title: 'Shipped Live, Zero Critical Failures', description: 'Five-plus production apps live on the Play Store and App Store — every release with zero critical post-launch failures.' },
