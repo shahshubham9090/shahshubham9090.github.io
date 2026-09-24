@@ -33,16 +33,33 @@
     return `<div class="tag-pills">${tags.map((t) => `<span class="tag-pill">${escapeHTML(t)}</span>`).join('')}</div>`;
   }
 
-  /* ---------- Generic master-detail (Expertise / Experience) ---------- */
-  function renderMasterDetail(navEl, stageEl, items, renderNavBtn, renderStage) {
-    if (!navEl || !stageEl || !items || !items.length) return;
+  /* ---------- Generic master-detail (Expertise / Experience) ----------
+     Every panel is rendered into the DOM — not just the selected one —
+     and stays fully visible until this function hides all-but-one. That
+     ordering matters: a no-JS visitor (or a crawler that doesn't run
+     scripts) sees every panel's real content stacked and readable,
+     because the "hide the other three" step never runs for them. JS
+     users see the exact same interactive single-panel-at-a-time
+     experience as before; only the mechanism changed (toggling
+     visibility of pre-rendered panels instead of replacing one shared
+     container's innerHTML per click). */
+  function renderMasterDetail(navEl, stageGroupEl, items, renderNavBtn, renderStage) {
+    if (!navEl || !stageGroupEl || !items || !items.length) return;
+    const groupId = stageGroupEl.id;
     navEl.innerHTML = items.map((item, i) => `
-      <button type="button" class="md-nav-btn" role="tab" data-index="${i}">${renderNavBtn(item, i)}</button>
+      <button type="button" class="md-nav-btn" role="tab" data-index="${i}" aria-selected="false" aria-controls="${groupId}-panel-${i}">${renderNavBtn(item, i)}</button>
+    `).join('');
+    stageGroupEl.innerHTML = items.map((item, i) => `
+      <div class="md-stage" id="${groupId}-panel-${i}" role="tabpanel">${renderStage(item, i)}</div>
     `).join('');
     const buttons = Array.from(navEl.querySelectorAll('.md-nav-btn'));
+    const panels = Array.from(stageGroupEl.querySelectorAll('.md-stage'));
     function select(i) {
-      buttons.forEach((b, bi) => b.classList.toggle('is-active', bi === i));
-      stageEl.innerHTML = renderStage(items[i], i);
+      buttons.forEach((b, bi) => {
+        b.classList.toggle('is-active', bi === i);
+        b.setAttribute('aria-selected', bi === i ? 'true' : 'false');
+      });
+      panels.forEach((p, pi) => { p.hidden = pi !== i; });
     }
     buttons.forEach((btn, i) => btn.addEventListener('click', () => select(i)));
     select(0);
@@ -222,6 +239,8 @@
     } catch (e) {
       el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
+    const chip = document.getElementById('heroClockChip');
+    if (chip && !chip.classList.contains('is-ready')) chip.classList.add('is-ready');
   }
   updateClock();
   setInterval(updateClock, 1000);

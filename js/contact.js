@@ -11,6 +11,7 @@
   const nameInput = document.getElementById('fieldName');
   const emailInput = document.getElementById('fieldEmail');
   const messageInput = document.getElementById('fieldMessage');
+  const honeypot = document.getElementById('fieldCompanyWebsite');
   const status = document.getElementById('formStatus');
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,6 +61,20 @@
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // honeypot: a real visitor never sees or fills this field (see
+    // .form-field-honeypot in styles.css), so anything filling it in is a
+    // bot. Show the normal success message without actually sending —
+    // silently dropping it, rather than telling the bot it was caught,
+    // means its script just thinks the submission worked.
+    if (honeypot && honeypot.value.trim()) {
+      status.classList.remove('is-error');
+      status.textContent = "Thanks — your message has been sent! I'll get back to you soon.";
+      status.classList.add('is-visible');
+      form.reset();
+      return;
+    }
+
     const valid = validate();
 
     if (!valid) {
